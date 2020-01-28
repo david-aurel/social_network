@@ -6,7 +6,6 @@ genSalt = promisify(genSalt);
 hash = promisify(hash);
 compare = promisify(compare);
 
-export let comparePass = compare;
-export function hashPass(plainTextPass) {
+module.exports.compare = compare;
+module.exports.hash = plainTextPass =>
     genSalt().then(salt => hash(plainTextPass, salt));
-}

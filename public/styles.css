@@ -1,0 +1,9 @@
+.registration {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.logo {
+    font-family: lobster, cursive;
+}

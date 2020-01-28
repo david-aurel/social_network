@@ -1,6 +1,6 @@
 //import other files
-import { addUser } from "./db.js";
-import { hashPass, compare } from "./bcypt.js";
+const db = require("./src/db");
+const bcrypt = require("./src/bcrypt");
 
 // require node packages
 const express = require("express");
@@ -20,7 +20,7 @@ app.use(express.json());
 // cookies
 app.use(
     cookieSession({
-        secret: sessionSecret,
+        secret: "V1JYz7qSJMoF",
         maxAge: 1000 * 60 * 60 * 24 * 7 * 6
     })
 );
@@ -39,6 +39,7 @@ if (process.env.NODE_ENV != "production") {
 
 // **************  ROUTES  *******************
 app.get("/welcome", (req, res) => {
+    console.log("GET /welcome hit");
     if (req.session.userId) {
         res.redirect("/");
     } else {
@@ -47,21 +48,37 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+    console.log("POST /register hit");
+
     //insert into db
-    hashPass(req.body.pass).then(hashedPass => {
-        addUser(req.body.first, req.body.last, req.body.email, hashedPass)
-            .then(({ data }) => {
-                req.session.userId = data.id;
-            })
-            .then(() => res.json({ success: true }))
-            .catch(err => {
-                console.log(err);
-                res.sendStatus(500);
-            });
-    });
+    bcrypt
+        .hash(req.body.pass)
+        .then(hashedPass => {
+            db.addUser(
+                req.body.first,
+                req.body.last,
+                req.body.email,
+                hashedPass
+            )
+                .then(({ rows }) => {
+                    req.session.userId = rows[0].id;
+                    res.json({ success: true });
+                })
+                .catch(err => {
+                    res.json({ err: true });
+                    res.sendStatus(500);
+                });
+        })
+        .catch(err => {
+            console.log("err in POST /register");
+
+            res.json({ err: true });
+            res.sendStatus(500);
+        });
 });
 
 app.get("*", function(req, res) {
+    console.log("GET * hit");
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {
