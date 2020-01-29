@@ -1,6 +1,7 @@
 //import other files
 const db = require("./src/db");
 const bcrypt = require("./src/bcrypt");
+const ses = require("./src/ses");
 
 // require node packages
 const express = require("express");
@@ -122,24 +123,29 @@ app.post("/reset/start", (req, res) => {
             const secretCode = cryptoRandomString({
                 length: 6
             });
-            console.log(secretCode);
             // REDIS //
             client.setex(req.body.email, 600, secretCode, function(err, data) {
                 if (err) {
                     return console.log("err in setex redis:", err);
                 }
-                console.log(`the ${req.body.email} key was successfully set`);
+                // console.log(`the ${req.body.email} key was successfully set`);
 
                 client.get(req.body.email, function(err, data) {
                     if (err) {
                         return console.log("err in get redis:", err);
                     }
-                    console.log(
-                        `The value of the  ${req.body.email} key is: ${data}`
-                    );
+                    // console.log(`The value of the  ${req.body.email} key is: ${data}`);
                 });
             });
             // REDIS //
+
+            // EMAIL //
+            let recipientEmail = req.body.email.replace(/@/g, "_at_");
+            let recipient = `hypnotic.chamomile+${recipientEmail}@spicedling.email`;
+            let message = `your reset code is: ${secretCode}.`;
+            let subject = "your reset code";
+            ses.sendEmail(recipient, message, subject);
+            // EMAIL //
         });
     }
 });
