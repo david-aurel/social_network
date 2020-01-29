@@ -13,7 +13,6 @@ export default class Reset extends React.Component {
         if (step == 1) {
             return (
                 <div>
-                    <h4>Reset Password</h4>
                     <p>Please enter the email you registered with</p>
                     <input
                         name="email"
@@ -26,10 +25,23 @@ export default class Reset extends React.Component {
         } else if (step == 2) {
             return (
                 <div>
-                    <p>reset password step 2</p>
-                    <button onClick={e => this.changeState(3)}>
-                        change to state 3
-                    </button>
+                    <div>
+                        <p>please enter the code you received</p>
+                        <input
+                            name="code"
+                            onChange={e => this.handleChange(e)}
+                            placeholder="code"
+                        />
+                    </div>
+                    <div>
+                        <p>please enter a new password</p>
+                        <input
+                            name="pass"
+                            onChange={e => this.handleChange(e)}
+                            placeholder="new password"
+                        />
+                        <button onClick={e => this.setNewPass()}>submit</button>
+                    </div>
                 </div>
             );
         } else if (step == 3) {
@@ -54,7 +66,30 @@ export default class Reset extends React.Component {
             .then(({ data }) => {
                 if (data.success) {
                     this.setState({
-                        step: 2
+                        step: 2,
+                        error: false
+                    });
+                } else {
+                    this.setState({
+                        error: true
+                    });
+                }
+            });
+    }
+    setNewPass() {
+        console.log("setting new pass...");
+
+        axios
+            .post("/reset/verify", {
+                email: this.state.email,
+                code: this.state.code,
+                pass: this.state.pass
+            })
+            .then(({ data }) => {
+                if (data.success) {
+                    this.setState({
+                        step: 3,
+                        error: false
                     });
                 } else {
                     this.setState({
@@ -67,6 +102,7 @@ export default class Reset extends React.Component {
         return (
             <div>
                 <p>state:{this.state.step}</p>
+                <h4>Reset Password</h4>
                 {this.state.error && (
                     <div className="error">
                         something went wrong, please try again.

@@ -158,6 +158,34 @@ app.post("/reset/start", (req, res) => {
     }
 });
 
+app.post("/reset/verify", (req, res) => {
+    console.log("POST /reset/verify hit");
+    let email = req.body.email;
+
+    client.get(email, (err, data) => {
+        if (err) {
+            return console.log("err in get redis:", err);
+        }
+        console.log(`The value of the  ${email} key is: ${data}`);
+        if (req.body.code === data) {
+            console.log("code checks out!");
+            bcrypt.hash(req.body.pass).then(hashedPass => {
+                db.updatePass(email, hashedPass).then(() => {
+                    console.log("updating worked");
+                    res.json({
+                        success: true
+                    });
+                });
+            });
+        } else {
+            console.log("wrong reset code");
+            res.json({
+                success: false
+            });
+        }
+    });
+});
+
 app.get("*", function(req, res) {
     console.log("GET * hit");
     if (!req.session.userId) {
