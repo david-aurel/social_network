@@ -7,7 +7,12 @@ let elem;
 if (location.pathname == "/welcome") {
     elem = <Welcome />;
 } else {
-    elem = <h1 className="logo">nice</h1>;
+    elem = (
+        <div>
+            <h1 className="logo">nice</h1>
+            <a href="/logout">Log out</a>
+        </div>
+    );
 }
 
 ReactDOM.render(elem, document.querySelector("main"));

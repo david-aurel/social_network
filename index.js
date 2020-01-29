@@ -77,7 +77,6 @@ app.post("/register", (req, res) => {
         })
         .catch(() => {
             res.json({ success: false });
-            res.sendStatus(500);
         });
 });
 
@@ -90,15 +89,19 @@ app.post("/login", (req, res) => {
                     req.session.userId = data[0].id;
                     res.json({ success: true });
                 } else {
-                    console.log("no match");
                     res.json({ success: false });
                 }
             });
         })
         .catch(() => {
-            console.log("catch");
             res.json({ success: false });
         });
+});
+
+app.get("/logout", (req, res) => {
+    console.log("POST to /logout hit");
+    req.session.userId = null;
+    res.redirect("/");
 });
 
 app.get("*", function(req, res) {
