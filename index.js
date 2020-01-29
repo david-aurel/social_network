@@ -72,13 +72,32 @@ app.post("/register", (req, res) => {
                     res.json({ success: true });
                 })
                 .catch(() => {
-                    res.json({ err: true });
+                    res.json({ success: false });
                 });
         })
-        .catch(err => {
-            console.log("err in POST /register:", err);
-            res.json({ err: true });
+        .catch(() => {
+            res.json({ success: false });
             res.sendStatus(500);
+        });
+});
+
+app.post("/login", (req, res) => {
+    console.log("POST /login hit");
+    db.getUser(req.body.email)
+        .then(data => {
+            bcrypt.compare(req.body.pass, data[0].pass).then(match => {
+                if (match) {
+                    req.session.userId = data[0].id;
+                    res.json({ success: true });
+                } else {
+                    console.log("no match");
+                    res.json({ success: false });
+                }
+            });
+        })
+        .catch(() => {
+            console.log("catch");
+            res.json({ success: false });
         });
 });
 

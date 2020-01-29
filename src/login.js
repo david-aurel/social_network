@@ -2,7 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -14,9 +14,7 @@ export default class Registration extends React.Component {
     }
     submit() {
         axios
-            .post("/register", {
-                first: this.state.first,
-                last: this.state.last,
+            .post("/login", {
                 email: this.state.email,
                 pass: this.state.pass
             })
@@ -27,30 +25,20 @@ export default class Registration extends React.Component {
                 } else {
                     //failure!
                     this.setState({
-                        error: true
+                        err: true
                     });
                 }
             });
     }
     render() {
         return (
-            <div className="registration">
-                <h4>Register</h4>
-                {this.state.error && (
+            <div className="login">
+                <h4>Login</h4>
+                {this.state.err && (
                     <div className="error">
                         something went wrong, please try again.
                     </div>
                 )}
-                <input
-                    name="first"
-                    onChange={e => this.handleChange(e)}
-                    placeholder="first name"
-                />
-                <input
-                    name="last"
-                    onChange={e => this.handleChange(e)}
-                    placeholder="last name"
-                />
                 <input
                     name="email"
                     onChange={e => this.handleChange(e)}
@@ -59,10 +47,10 @@ export default class Registration extends React.Component {
                 <input
                     name="pass"
                     onChange={e => this.handleChange(e)}
-                    placeholder="password"
+                    placeholder="pass"
                 />
-                <button onClick={e => this.submit()}>register</button>
-                <Link to="/login">Click here to log in</Link>
+                <button onClick={e => this.submit(e)}>Log in</button>
+                <Link to="/">Click here to register</Link>
             </div>
         );
     }
