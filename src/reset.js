@@ -47,7 +47,7 @@ export default class Reset extends React.Component {
         } else if (step == 3) {
             return (
                 <div>
-                    <p>reset password step 3</p>
+                    <p>Success!</p>
                     <Link to="/login">Log in</Link>
                 </div>
             );
@@ -77,8 +77,6 @@ export default class Reset extends React.Component {
             });
     }
     setNewPass() {
-        console.log("setting new pass...");
-
         axios
             .post("/reset/verify", {
                 email: this.state.email,
@@ -101,7 +99,6 @@ export default class Reset extends React.Component {
     render() {
         return (
             <div>
-                <p>state:{this.state.step}</p>
                 <h4>Reset Password</h4>
                 {this.state.error && (
                     <div className="error">

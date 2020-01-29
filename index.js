@@ -166,19 +166,15 @@ app.post("/reset/verify", (req, res) => {
         if (err) {
             return console.log("err in get redis:", err);
         }
-        console.log(`The value of the  ${email} key is: ${data}`);
         if (req.body.code === data) {
-            console.log("code checks out!");
             bcrypt.hash(req.body.pass).then(hashedPass => {
                 db.updatePass(email, hashedPass).then(() => {
-                    console.log("updating worked");
                     res.json({
                         success: true
                     });
                 });
             });
         } else {
-            console.log("wrong reset code");
             res.json({
                 success: false
             });
