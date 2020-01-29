@@ -48,6 +48,9 @@ export default class Reset extends React.Component {
     }
     checkEmail() {
         console.log("email checking...");
+        axios.post("/reset/start", {
+            email: this.state.email
+        });
     }
     render() {
         return (

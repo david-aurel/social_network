@@ -8,6 +8,7 @@ const app = express();
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
+const cryptoRandomString = require("crypto-random-string");
 
 // use this folder for static files
 app.use(express.static("./public"));
@@ -44,6 +45,16 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
+// redis
+let redis = require("redis");
+let client = redis.createClient({
+    host: "localhost",
+    port: 6379
+});
+client.on("error", function(err) {
+    console.log("error in redis client:", err);
+});
 
 // **************  ROUTES  *******************
 app.get("/welcome", (req, res) => {
@@ -102,6 +113,35 @@ app.get("/logout", (req, res) => {
     console.log("POST to /logout hit");
     req.session.userId = null;
     res.redirect("/");
+});
+
+app.post("/reset/start", (req, res) => {
+    console.log("POST /reset/start hit");
+    if (!req.session.userId) {
+        db.getUser(req.body.email).then(data => {
+            const secretCode = cryptoRandomString({
+                length: 6
+            });
+            console.log(secretCode);
+            // REDIS //
+            client.setex(req.body.email, 600, secretCode, function(err, data) {
+                if (err) {
+                    return console.log("err in setex redis:", err);
+                }
+                console.log(`the ${req.body.email} key was successfully set`);
+
+                client.get(req.body.email, function(err, data) {
+                    if (err) {
+                        return console.log("err in get redis:", err);
+                    }
+                    console.log(
+                        `The value of the  ${req.body.email} key is: ${data}`
+                    );
+                });
+            });
+            // REDIS //
+        });
+    }
 });
 
 app.get("*", function(req, res) {
