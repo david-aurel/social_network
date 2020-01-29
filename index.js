@@ -119,34 +119,42 @@ app.get("/logout", (req, res) => {
 app.post("/reset/start", (req, res) => {
     console.log("POST /reset/start hit");
     if (!req.session.userId) {
-        db.getUser(req.body.email).then(data => {
-            const secretCode = cryptoRandomString({
-                length: 6
-            });
-            // REDIS //
-            client.setex(req.body.email, 600, secretCode, function(err, data) {
-                if (err) {
-                    return console.log("err in setex redis:", err);
-                }
-                // console.log(`the ${req.body.email} key was successfully set`);
-
-                client.get(req.body.email, function(err, data) {
-                    if (err) {
-                        return console.log("err in get redis:", err);
-                    }
-                    // console.log(`The value of the  ${req.body.email} key is: ${data}`);
+        db.getUser(req.body.email)
+            .then(data => {
+                let email = data[0].email;
+                const secretCode = cryptoRandomString({
+                    length: 6
                 });
-            });
-            // REDIS //
+                // REDIS //
+                client.setex(email, 600, secretCode, err => {
+                    if (err) {
+                        return console.log("err in setex redis:", err);
+                    }
+                    // console.log(`the ${req.body.email} key was successfully set`);
 
-            // EMAIL //
-            let recipientEmail = req.body.email.replace(/@/g, "_at_");
-            let recipient = `hypnotic.chamomile+${recipientEmail}@spicedling.email`;
-            let message = `your reset code is: ${secretCode}.`;
-            let subject = "your reset code";
-            ses.sendEmail(recipient, message, subject);
-            // EMAIL //
-        });
+                    client.get(email, err => {
+                        if (err) {
+                            return console.log("err in get redis:", err);
+                        }
+                        // console.log(`The value of the  ${req.body.email} key is: ${data}`);
+                    });
+                });
+                // REDIS //
+
+                // EMAIL //
+                let recipientEmail = email.replace(/@/g, "_at_");
+                let recipient = `hypnotic.chamomile+${recipientEmail}@spicedling.email`;
+                let message = `your reset code is: ${secretCode}.`;
+                let subject = "your reset code";
+                ses.sendEmail(recipient, message, subject);
+                // EMAIL //
+            })
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch(() => {
+                res.json({ success: false });
+            });
     }
 });
 

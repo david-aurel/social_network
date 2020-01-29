@@ -20,7 +20,7 @@ export default class Reset extends React.Component {
                         onChange={e => this.handleChange(e)}
                         placeholder="email"
                     />
-                    <button onClick={e => this.checkEmail()}>submit</button>
+                    <button onClick={e => this.sendCode()}>submit</button>
                 </div>
             );
         } else if (step == 2) {
@@ -46,16 +46,32 @@ export default class Reset extends React.Component {
             [e.target.name]: e.target.value
         });
     }
-    checkEmail() {
-        console.log("email checking...");
-        axios.post("/reset/start", {
-            email: this.state.email
-        });
+    sendCode() {
+        axios
+            .post("/reset/start", {
+                email: this.state.email
+            })
+            .then(({ data }) => {
+                if (data.success) {
+                    this.setState({
+                        step: 2
+                    });
+                } else {
+                    this.setState({
+                        error: true
+                    });
+                }
+            });
     }
     render() {
         return (
             <div>
                 <p>state:{this.state.step}</p>
+                {this.state.error && (
+                    <div className="error">
+                        something went wrong, please try again.
+                    </div>
+                )}
                 {this.showCurrent(this.state.step)}
             </div>
         );
