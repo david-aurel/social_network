@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios from "./axios";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -25,7 +25,6 @@ export default class Registration extends React.Component {
                     location.replace("/");
                 } else {
                     //failure!
-                    console.log("here");
                     this.setState({
                         error: true
                     });
@@ -36,7 +35,11 @@ export default class Registration extends React.Component {
         return (
             <div className="registration">
                 <h4>Register</h4>
-                {this.state.error && <div className="error">Oops!</div>}
+                {this.state.error && (
+                    <div className="error">
+                        something went wrong, please try again.
+                    </div>
+                )}
                 <input
                     name="first"
                     onChange={e => this.handleChange(e)}

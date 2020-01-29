@@ -7,6 +7,7 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 
 // use this folder for static files
 app.use(express.static("./public"));
@@ -24,6 +25,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 7 * 6
     })
 );
+
+// csurf
+app.use(csurf());
+app.use(function(req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 // serve js depending on production or developement
 if (process.env.NODE_ENV != "production") {
@@ -49,7 +57,6 @@ app.get("/welcome", (req, res) => {
 
 app.post("/register", (req, res) => {
     console.log("POST /register hit");
-
     //insert into db
     bcrypt
         .hash(req.body.pass)
@@ -64,14 +71,12 @@ app.post("/register", (req, res) => {
                     req.session.userId = rows[0].id;
                     res.json({ success: true });
                 })
-                .catch(err => {
+                .catch(() => {
                     res.json({ err: true });
-                    res.sendStatus(500);
                 });
         })
         .catch(err => {
-            console.log("err in POST /register");
-
+            console.log("err in POST /register:", err);
             res.json({ err: true });
             res.sendStatus(500);
         });
