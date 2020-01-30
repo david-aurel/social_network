@@ -13,7 +13,14 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <div>APP!</div>
+                <nav>
+                    <div className="logo">
+                        <img src="icons/logo.svg" />
+                    </div>
+                    <div className="navUser">
+                        <img src="icons/navUser.svg" />
+                    </div>
+                </nav>
             </div>
         );
     }
