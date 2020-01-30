@@ -29,3 +29,7 @@ exports.updatePass = (email, pass) => {
         pass
     ]);
 };
+
+exports.updateProfilePic = (url, id) => {
+    return db.query(`UPDATE users SET url = $1 WHERE id = $2`, [url, id]);
+};

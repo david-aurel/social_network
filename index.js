@@ -2,6 +2,8 @@
 const db = require("./src/db");
 const bcrypt = require("./src/bcrypt");
 const ses = require("./src/ses");
+const s3 = require("./s3");
+const s3Url = "https://s3.amazonaws.com/spicedling/";
 
 // require node packages
 const express = require("express");
@@ -55,6 +57,27 @@ let client = redis.createClient({
 });
 client.on("error", function(err) {
     console.log("error in redis client:", err);
+});
+
+/////////// vv boilerplate for multer file upload vv ////////////
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
 });
 
 // **************  ROUTES  *******************
@@ -189,6 +212,24 @@ app.post("/user", (req, res) => {
         })
         .catch(err => console.log("err in POST /user:", err));
 });
+
+app.post(
+    "/uploadProfilePic/",
+    uploader.single("file"),
+    s3.upload,
+    (req, res) => {
+        console.log("POST /uploadProfilePicture hit");
+        const imageUrl = s3Url + req.file.filename;
+        db.updateProfilePic(imageUrl, req.session.userId)
+            .then(() => {
+                res.json({ imageUrl });
+            })
+            .catch(err => {
+                console.log("err in POST /uploadProfilePic:", err);
+            });
+    }
+);
+
 // THIS ROUTE LAST!
 app.get("*", function(req, res) {
     console.log("GET * hit");
