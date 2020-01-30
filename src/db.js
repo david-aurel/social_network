@@ -17,6 +17,12 @@ exports.getUser = email => {
         .then(({ rows }) => rows);
 };
 
+exports.getUserById = id => {
+    return db
+        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .then(({ rows }) => rows);
+};
+
 exports.updatePass = (email, pass) => {
     return db.query(`UPDATE users SET pass = $2 WHERE email = $1`, [
         email,

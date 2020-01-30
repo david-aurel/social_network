@@ -182,6 +182,14 @@ app.post("/reset/verify", (req, res) => {
     });
 });
 
+app.post("/user", (req, res) => {
+    db.getUserById(req.session.userId)
+        .then(data => {
+            res.json(data[0]);
+        })
+        .catch(err => console.log("err in POST /user:", err));
+});
+// THIS ROUTE LAST!
 app.get("*", function(req, res) {
     console.log("GET * hit");
     if (!req.session.userId) {
