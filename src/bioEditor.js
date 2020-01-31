@@ -8,15 +8,28 @@ export default class BioEditor extends React.Component {
         };
     }
     showCurrent() {
-        if (!this.state.edit) {
-            return <button onClick={() => this.handleSubmit()}>edit</button>;
-        } else {
+        if (this.state.edit) {
             return (
                 <div>
                     <textarea />
                     <button onClick={() => this.handleSubmit()}>submit</button>
                 </div>
             );
+        } else {
+            if (this.props.bio) {
+                return (
+                    <div>
+                        <p>{this.props.bio}</p>
+                        <button onClick={() => this.handleSubmit()}>
+                            edit
+                        </button>
+                    </div>
+                );
+            } else {
+                return (
+                    <button onClick={() => this.handleSubmit()}>add bio</button>
+                );
+            }
         }
     }
     handleSubmit() {
@@ -25,11 +38,6 @@ export default class BioEditor extends React.Component {
         });
     }
     render() {
-        return (
-            <div>
-                {this.props.bio && <button>Add Bio</button>}
-                {this.showCurrent()}
-            </div>
-        );
+        return <div>{this.showCurrent()}</div>;
     }
 }
