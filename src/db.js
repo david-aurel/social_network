@@ -33,3 +33,9 @@ exports.updatePass = (email, pass) => {
 exports.updateProfilePic = (url, id) => {
     return db.query(`UPDATE users SET url = $1 WHERE id = $2`, [url, id]);
 };
+
+exports.updateBio = (bio, id) => {
+    console.log(bio, id);
+
+    return db.query(`UPDATE users SET bio = $1 WHERE id = $2`, [bio, id]);
+};

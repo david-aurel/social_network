@@ -230,6 +230,17 @@ app.post(
     }
 );
 
+app.post("/updateBio", async (req, res) => {
+    console.log("POST /updateBio hit");
+    await db.updateBio(req.body.bio, req.session.userId);
+    try {
+        res.sendStatus(200);
+    } catch (error) {
+        console.log("err in POST /updateBio");
+        res.sendStatus(500);
+    }
+});
+
 // THIS ROUTE LAST!
 app.get("*", function(req, res) {
     console.log("GET * hit");

@@ -25,6 +25,11 @@ export default class App extends React.Component {
             url: url
         });
     }
+    setBio(bio) {
+        this.setState({
+            bio: bio
+        });
+    }
     render() {
         return (
             <div>
@@ -60,6 +65,7 @@ export default class App extends React.Component {
                         />
                     }
                     bio={this.state.bio}
+                    setBio={bio => this.setBio(bio)}
                 />
             </div>
         );
