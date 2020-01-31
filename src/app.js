@@ -2,6 +2,7 @@ import React from "react";
 import axios from "./axios";
 import ProfilePic from "./profilePic";
 import Upload from "./uploader";
+import Profile from "./profile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -11,12 +12,10 @@ export default class App extends React.Component {
         };
     }
     async componentDidMount() {
-        const { data } = await axios.post("/user");
+        const { data } = await axios.get("/user");
         this.setState(data);
     }
     toggleUpload() {
-        console.log("toggleUpload");
-
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
@@ -34,6 +33,7 @@ export default class App extends React.Component {
                         <img src="icons/logo.svg" />
                     </div>
                     <ProfilePic
+                        className="profilePicIcon"
                         url={this.state.url}
                         first={this.state.first}
                         last={this.state.last}
@@ -46,6 +46,20 @@ export default class App extends React.Component {
                         toggleUpload={() => this.toggleUpload()}
                     />
                 )}
+                <Profile
+                    first={this.state.first}
+                    last={this.state.last}
+                    profilePic={
+                        <ProfilePic
+                            className="profilePic"
+                            id={this.state.id}
+                            first={this.state.first}
+                            last={this.state.last}
+                            url={this.state.url}
+                            toggleUpload={() => this.toggleUpload()}
+                        />
+                    }
+                />
             </div>
         );
     }

@@ -205,7 +205,7 @@ app.post("/reset/verify", (req, res) => {
     });
 });
 
-app.post("/user", (req, res) => {
+app.get("/user", (req, res) => {
     db.getUserById(req.session.userId)
         .then(data => {
             res.json(data[0]);

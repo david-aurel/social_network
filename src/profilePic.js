@@ -1,8 +1,14 @@
 import React from "react";
 
-export default function ProfilePic({ url, first, last, toggleUpload }) {
+export default function ProfilePic({
+    className,
+    url,
+    first,
+    last,
+    toggleUpload
+}) {
     return (
-        <div className="profilePic" onClick={toggleUpload}>
+        <div className={className} onClick={toggleUpload}>
             {url ? (
                 <img src={url} alt={`${first} ${last}`} />
             ) : (
