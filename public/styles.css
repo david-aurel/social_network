@@ -37,6 +37,7 @@ nav {
 
 .profilePicIcon img {
     object-fit: cover;
+    cursor: pointer;
 }
 
 img {

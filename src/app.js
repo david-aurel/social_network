@@ -39,7 +39,6 @@ export default class App extends React.Component {
                     </div>
                     <ProfilePic
                         className="profilePicIcon"
-                        url={this.state.url}
                         first={this.state.first}
                         last={this.state.last}
                         toggleUpload={() => this.toggleUpload()}
