@@ -1,21 +1,14 @@
 import React from "react";
-// import ProfilePic from "./profilePic";
+import BioEditor from "./bioEditor";
 
-export default class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    componentDidMount() {}
-    render() {
-        return (
-            <div className="profile">
-                {this.props.profilePic}
-                <div className="profileNameAndBio">
-                    <p>{`${this.props.first} ${this.props.last}`}</p>
-                    <div>BIO</div>
-                </div>
+export default function Profile({ first, last, profilePic, bio }) {
+    return (
+        <div className="profile">
+            {profilePic}
+            <div className="profileNameAndBio">
+                <p>{`${first} ${last}`}</p>
+                <BioEditor bio={bio} />
             </div>
-        );
-    }
+        </div>
+    );
 }

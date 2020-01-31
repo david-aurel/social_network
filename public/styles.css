@@ -13,6 +13,7 @@
 nav {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 .logo img {
     margin: 10px;
@@ -43,11 +44,6 @@ img {
     height: 100%;
 }
 
-.profile,
-.profileNameAndBio {
+.profile {
     display: flex;
-}
-
-.profileNameAndBio {
-    flex-direction: column;
 }

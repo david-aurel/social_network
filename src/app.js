@@ -59,6 +59,7 @@ export default class App extends React.Component {
                             toggleUpload={() => this.toggleUpload()}
                         />
                     }
+                    bio={this.state.bio}
                 />
             </div>
         );
