@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import Upload from "./uploader";
 import Profile from "./profile";
+import OtherProfile from "./otherProfile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -12,7 +14,7 @@ export default class App extends React.Component {
         };
     }
     async componentDidMount() {
-        const { data } = await axios.get("/user");
+        const { data } = await axios.get("/getUser");
         this.setState(data);
     }
     toggleUpload() {
@@ -32,41 +34,57 @@ export default class App extends React.Component {
     }
     render() {
         return (
-            <div>
-                <nav>
-                    <div className="logo">
-                        <img src="icons/logo.svg" />
-                    </div>
-                    <ProfilePic
-                        className="profilePicIcon"
-                        first={this.state.first}
-                        last={this.state.last}
-                        toggleUpload={() => this.toggleUpload()}
-                    />
-                </nav>
-                {this.state.uploaderIsVisible && (
-                    <Upload
-                        setProfilePicUrl={url => this.setProfilePicUrl(url)}
-                        toggleUpload={() => this.toggleUpload()}
-                    />
-                )}
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    profilePic={
+            <BrowserRouter>
+                <div>
+                    {/* Header */}
+                    <nav>
+                        <div className="logo">
+                            <img src="icons/logo.svg" />
+                        </div>
                         <ProfilePic
-                            className="profilePic"
-                            id={this.state.id}
+                            className="profilePicIcon"
                             first={this.state.first}
                             last={this.state.last}
-                            url={this.state.url}
                             toggleUpload={() => this.toggleUpload()}
                         />
-                    }
-                    bio={this.state.bio}
-                    setBio={bio => this.setBio(bio)}
-                />
-            </div>
+                    </nav>
+
+                    {/* Uploader */}
+                    {this.state.uploaderIsVisible && (
+                        <Upload
+                            setProfilePicUrl={url => this.setProfilePicUrl(url)}
+                            toggleUpload={() => this.toggleUpload()}
+                        />
+                    )}
+
+                    {/* Own Profile */}
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <Profile
+                                first={this.state.first}
+                                last={this.state.last}
+                                profilePic={
+                                    <ProfilePic
+                                        className="profilePic"
+                                        id={this.state.id}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        url={this.state.url}
+                                        toggleUpload={() => this.toggleUpload()}
+                                    />
+                                }
+                                bio={this.state.bio}
+                                setBio={bio => this.setBio(bio)}
+                            />
+                        )}
+                    />
+
+                    {/* Other Profile */}
+                    <Route path="/user/:id" component={OtherProfile} />
+                </div>
+            </BrowserRouter>
         );
     }
 }
