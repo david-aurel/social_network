@@ -213,7 +213,7 @@ app.get("/getUser", (req, res) => {
         .catch(err => console.log("err in POST /getUser:", err));
 });
 
-app.get("/getOtherUser/:id", (req, res) => {
+app.get("/user/:id.json", (req, res) => {
     console.log("GET /getOtherUser hit");
     db.getUserById(req.params.id)
         .then(data => {
