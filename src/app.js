@@ -39,7 +39,7 @@ export default class App extends React.Component {
                     {/* Header */}
                     <nav>
                         <div className="logo">
-                            <img src="/icons/logo.svg" />
+                            <img id="test" src="/icons/logo.svg" />
                         </div>
                         <ProfilePic
                             className="profilePicIcon"
@@ -82,7 +82,16 @@ export default class App extends React.Component {
                     />
 
                     {/* Other Profile */}
-                    <Route path="/user/:id" component={OtherProfile} />
+                    <Route
+                        path="/user/:id"
+                        render={props => (
+                            <OtherProfile
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        )}
+                    />
                 </div>
             </BrowserRouter>
         );

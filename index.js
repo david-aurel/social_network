@@ -217,7 +217,7 @@ app.get("/getOtherUser/:id", (req, res) => {
     console.log("GET /getOtherUser hit");
     db.getUserById(req.params.id)
         .then(data => {
-            res.json(data[0]);
+            res.json({ requestedUser: data[0], ownId: req.session.userId });
         })
         .catch(err => console.log("err in POST /getOtherUser", err));
 });
