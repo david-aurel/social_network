@@ -210,7 +210,16 @@ app.get("/getUser", (req, res) => {
         .then(data => {
             res.json(data[0]);
         })
-        .catch(err => console.log("err in POST /user:", err));
+        .catch(err => console.log("err in POST /getUser:", err));
+});
+
+app.get("/getOtherUser/:id", (req, res) => {
+    console.log("GET /getOtherUser hit");
+    db.getUserById(req.params.id)
+        .then(data => {
+            res.json(data[0]);
+        })
+        .catch(err => console.log("err in POST /getOtherUser", err));
 });
 
 app.post(
