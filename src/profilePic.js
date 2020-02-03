@@ -10,9 +10,9 @@ export default function ProfilePic({
     return (
         <div className={className} onClick={toggleUpload}>
             {url ? (
-                <img src={url} alt={`${first} ${last}`} />
+                <img src={`/${url}`} alt={`${first} ${last}`} />
             ) : (
-                <img src="icons/defaultProfilePic.svg" />
+                <img src="/icons/defaultProfilePic.svg" />
             )}
         </div>
     );

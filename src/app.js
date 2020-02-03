@@ -39,7 +39,7 @@ export default class App extends React.Component {
                     {/* Header */}
                     <nav>
                         <div className="logo">
-                            <img src="icons/logo.svg" />
+                            <img src="/icons/logo.svg" />
                         </div>
                         <ProfilePic
                             className="profilePicIcon"

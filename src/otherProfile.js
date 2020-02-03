@@ -9,12 +9,6 @@ export default class OtherProfile extends Component {
 
     componentDidMount() {
         // We want to make a request to the server to get all the info about the requested user...
-
-        console.log(this.props.match.params.id);
-
-        if (this.props.match.params.id == 6) {
-            this.props.history.push("/");
-        }
     }
     render() {
         return (
