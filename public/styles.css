@@ -30,6 +30,7 @@ nav {
 .profilePic {
     width: 150px;
     height: 150px;
+    margin-right: 30px;
 }
 .profilePic img {
     object-fit: contain;
@@ -47,4 +48,5 @@ img {
 
 .profile {
     display: flex;
+    margin: 15px 0;
 }

@@ -241,11 +241,22 @@ app.post(
 
 app.post("/updateBio", async (req, res) => {
     console.log("POST /updateBio hit");
-    await db.updateBio(req.body.bio, req.session.userId);
     try {
+        await db.updateBio(req.body.bio, req.session.userId);
         res.sendStatus(200);
     } catch (error) {
         console.log("err in POST /updateBio");
+        res.sendStatus(500);
+    }
+});
+
+app.get("/mostRecentUsers", async (req, res) => {
+    console.log("GET /mostRecentUsers hit");
+    try {
+        const rows = await db.getMostRecentUsers();
+        res.json(rows);
+    } catch (err) {
+        console.log("err in GET /mostRecentUsers:", err);
         res.sendStatus(500);
     }
 });

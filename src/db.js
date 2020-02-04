@@ -37,3 +37,10 @@ exports.updateProfilePic = (url, id) => {
 exports.updateBio = (bio, id) => {
     return db.query(`UPDATE users SET bio = $1 WHERE id = $2`, [bio, id]);
 };
+
+exports.getMostRecentUsers = async () => {
+    const { rows } = await db.query(
+        `SELECT first, last, url, bio FROM users ORDER BY ID DESC LIMIT 3`
+    );
+    return rows;
+};

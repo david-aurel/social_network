@@ -5,6 +5,7 @@ import ProfilePic from "./profilePic";
 import Upload from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
+import Users from "./findPeople";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -41,6 +42,10 @@ export default class App extends React.Component {
                         <div className="logo">
                             <img id="test" src="/icons/logo.svg" />
                         </div>
+                        <div className="findPeople">
+                            <a href="/users">Find People</a>
+                        </div>
+
                         <ProfilePic
                             className="profilePicIcon"
                             first={this.state.first}
@@ -92,6 +97,9 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+
+                    {/* Find People */}
+                    <Route path="/users" component={Users} />
                 </div>
             </BrowserRouter>
         );
