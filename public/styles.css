@@ -21,6 +21,7 @@ nav {
     height: 50px;
 }
 
+/* Profiles */
 .profilePicIcon {
     margin: 10px;
     width: 50px;
@@ -49,4 +50,10 @@ img {
 .profile {
     display: flex;
     margin: 15px 0;
+}
+
+/* Search results */
+.searchResult {
+    text-decoration: none;
+    color: black;
 }

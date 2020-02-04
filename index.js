@@ -261,6 +261,17 @@ app.get("/mostRecentUsers", async (req, res) => {
     }
 });
 
+app.get("/getUsersBySearch/:search", async (req, res) => {
+    console.log("GET /getUsersBySearch hit");
+    try {
+        const rows = await db.getUsersBySearch(req.params.search);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in GET /getUsersBySearch:", err);
+        res.sendStatus(500);
+    }
+});
+
 // THIS ROUTE LAST!
 app.get("*", function(req, res) {
     console.log("GET * hit");

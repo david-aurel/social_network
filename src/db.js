@@ -40,7 +40,17 @@ exports.updateBio = (bio, id) => {
 
 exports.getMostRecentUsers = async () => {
     const { rows } = await db.query(
-        `SELECT first, last, url, bio FROM users ORDER BY ID DESC LIMIT 3`
+        `SELECT id, first, last, url, bio FROM users ORDER BY ID DESC LIMIT 3`
+    );
+    return rows;
+};
+
+exports.getUsersBySearch = async search => {
+    const {
+        rows
+    } = await db.query(
+        `SELECT id, first, last, url, bio FROM users WHERE first ILIKE $1`,
+        [search + "%"]
     );
     return rows;
 };
