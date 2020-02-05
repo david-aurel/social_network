@@ -72,7 +72,7 @@ exports.makeFriendsRequest = (id1, id2) => {
     );
 };
 
-exports.acceptFriendsRequest = (id1, id2) => {
+exports.acceptFriendRequest = (id1, id2) => {
     return db.query(
         `UPDATE friendships SET accepted = true WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
         [id1, id2]

@@ -15,12 +15,16 @@ export default function UseFriendButton({ id }) {
                 const { data } = await axios.get(`/friends-status/${id}`);
                 console.log("data:", data);
 
-                if (!data.length) {
+                if (!data.rows) {
                     setButtonText(buttonTextArr[0]);
-                } else if (!data.accepted) {
-                    setButtonText(buttonTextArr[1]);
-                } else {
-                    setButtonText(buttonTextArr[2]);
+                } else if (!data.rows.accepted) {
+                    if (data.rows.sender_id == data.ownId) {
+                        setButtonText(buttonTextArr[1]);
+                    } else {
+                        setButtonText(buttonTextArr[2]);
+                    }
+                } else if (data.rows.accepted) {
+                    setButtonText(buttonTextArr[3]);
                 }
             }
         })();

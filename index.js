@@ -280,7 +280,7 @@ app.get("/friends-status/:id", async (req, res) => {
             req.session.userId,
             req.params.id
         );
-        res.json(rows);
+        res.json({ rows: rows[0], ownId: req.session.userId });
     } catch (err) {
         console.log("err in GET /friends-status/:id:", err);
         res.sendStatus(500);
@@ -300,7 +300,7 @@ app.post("/make-friend-request/:id", async (req, res) => {
     }
 });
 
-app.post("/accept-friend-request:id", async (req, res) => {
+app.post("/accept-friend-request/:id", async (req, res) => {
     console.log("POST /accept-friend-request/:id hit");
     // UPDATE friendships. It's going to set the accepted column to true for the two users.
     try {
