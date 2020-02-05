@@ -54,3 +54,34 @@ exports.getUsersBySearch = async search => {
     );
     return rows;
 };
+
+exports.checkFriendship = async (id1, id2) => {
+    const {
+        rows
+    } = await db.query(
+        `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
+        [id1, id2]
+    );
+    return rows;
+};
+
+exports.makeFriendsRequest = (id1, id2) => {
+    return db.query(
+        `INSERT INTO friendships (sender_id, recipient_id) VALUES ($1, $2)`,
+        [id1, id2]
+    );
+};
+
+exports.acceptFriendsRequest = (id1, id2) => {
+    return db.query(
+        `UPDATE friendships SET accepted = true WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
+        [id1, id2]
+    );
+};
+
+exports.endFriendship = (id1, id2) => {
+    return db.query(
+        `DELETE FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
+        [id1, id2]
+    );
+};

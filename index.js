@@ -59,7 +59,7 @@ client.on("error", function(err) {
     console.log("error in redis client:", err);
 });
 
-/////////// vv boilerplate for multer file upload vv ////////////
+/////////// boilerplate for multer file upload  ////////////
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
@@ -268,6 +268,60 @@ app.get("/getUsersBySearch/:search", async (req, res) => {
         res.json(rows);
     } catch (err) {
         console.log("err in GET /getUsersBySearch:", err);
+        res.sendStatus(500);
+    }
+});
+
+app.get("/friends-status/:id", async (req, res) => {
+    console.log("GET /friends-status/:id hit");
+    // gets initial status between logged in user and user who's page we're on
+    try {
+        const rows = await db.checkFriendship(
+            req.session.userId,
+            req.params.id
+        );
+        res.json(rows);
+    } catch (err) {
+        console.log("err in GET /friends-status/:id:", err);
+        res.sendStatus(500);
+    }
+});
+
+app.post("/make-friend-request/:id", async (req, res) => {
+    console.log("POST /make-friend-request/:id hit");
+    // INSERT into friendships. Insert sender_id and recipient_id
+    try {
+        await db.makeFriendsRequest(req.session.userId, req.params.id);
+        console.log("made friends request");
+        res.sendStatus(200);
+    } catch (err) {
+        console.log("err in POST /make-friend-request/:id", err);
+        res.sendStatus(500);
+    }
+});
+
+app.post("/accept-friend-request:id", async (req, res) => {
+    console.log("POST /accept-friend-request/:id hit");
+    // UPDATE friendships. It's going to set the accepted column to true for the two users.
+    try {
+        await db.acceptFriendRequest(req.session.userId, req.params.id);
+        console.log("accepted friends request");
+        res.sendStatus(200);
+    } catch (err) {
+        console.log("err in POST /accept-friend-request/:id", err);
+        res.sendStatus(500);
+    }
+});
+
+app.post("/end-friendship/:id", async (req, res) => {
+    console.log("POST /end-friendship/:id hit");
+    // DELETE the two user's row from friendships
+    try {
+        await db.endFriendship(req.session.userId, req.params.id);
+        console.log("ended friendship");
+        res.sendStatus(200);
+    } catch (err) {
+        console.log("err in POST /end-friendship/:id", err);
         res.sendStatus(500);
     }
 });
