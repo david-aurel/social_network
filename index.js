@@ -326,6 +326,17 @@ app.post("/end-friendship/:id", async (req, res) => {
     }
 });
 
+app.get("/friends-wannabes", async (req, res) => {
+    console.log("GET /friends-wannabes hit");
+    try {
+        const rows = await db.getFriendsAndWannabes(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log("err in GET /friends-wannabes:", err);
+        res.sendStatus(500);
+    }
+});
+
 // THIS ROUTE LAST!
 app.get("*", function(req, res) {
     console.log("GET * hit");
