@@ -87,8 +87,6 @@ exports.endFriendship = (id1, id2) => {
 };
 
 exports.getFriendsAndWannabes = async id => {
-    console.log("id:", id);
-
     const { rows } = await db.query(
         `
       SELECT users.id, first, last, url, accepted
