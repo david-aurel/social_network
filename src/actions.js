@@ -1,4 +1,5 @@
 import axios from "./axios";
+import reducer from "./reducers";
 
 // export function fn() {
 // makes axios requests to server
@@ -13,7 +14,7 @@ import axios from "./axios";
 export async function receiveFriendsAndWannabes() {
     const { data } = await axios.get("/friends-wannabes");
     return {
-        type: "GET_FRIENDS_AND_WANNABES",
+        type: "RECEIVE_FRIENDS_WANNABES",
         friendsWannabes: data
     };
 }
@@ -29,7 +30,7 @@ export async function acceptFriendsRequest(id) {
 export async function endFriendship(id) {
     await axios.post(`/accept-friendship/${id}`);
     return {
-        type: "END_FRIENDSHIP",
+        type: "UNFRIEND",
         id: id
     };
 }
