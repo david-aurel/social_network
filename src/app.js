@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import Upload from "./uploader";
 import Profile from "./profile";
@@ -44,7 +45,10 @@ export default class App extends React.Component {
                             <img id="test" src="/icons/logo.svg" />
                         </div>
                         <div className="findPeople">
-                            <a href="/users">Find People</a>
+                            <Link to="/users">Find People</Link>
+                        </div>
+                        <div className="friends">
+                            <Link to="/friends">Friends</Link>
                         </div>
 
                         <ProfilePic
