@@ -6,6 +6,7 @@ import Upload from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import Users from "./findPeople";
+import FriendsAndWannabes from "./friendsAndWannabes";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -100,6 +101,9 @@ export default class App extends React.Component {
 
                     {/* Find People */}
                     <Route path="/users" component={Users} />
+
+                    {/* Friends and Wannabes */}
+                    <Route path="/friends" component={FriendsAndWannabes} />
                 </div>
             </BrowserRouter>
         );
