@@ -23,18 +23,24 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type === "ACCEPT_FRIEND_REQUEST") {
-        state = state.map(user => {
-            if (user.id == action.id) {
-                user.accepted = true;
-            }
-            return user;
-        });
+        state = {
+            ...state,
+            friendsWannabes: state.friendsWannabes.map(user => {
+                if (user.id == action.id) {
+                    user.accepted = true;
+                }
+                return user;
+            })
+        };
     }
 
     if (action.type === "UNFRIEND") {
-        state = state.filter(user => {
-            user.id != action.id;
-        });
+        state = {
+            ...state,
+            friendsWannabes: state.friendsWannabes.filter(
+                user => user.id != action.id
+            )
+        };
     }
 
     return state;

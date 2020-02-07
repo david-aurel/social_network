@@ -19,8 +19,8 @@ export async function receiveFriendsAndWannabes() {
     };
 }
 
-export async function acceptFriendsRequest(id) {
-    await axios.post(`/accept-friendship/${id}`);
+export async function acceptFriendRequest(id) {
+    await axios.post(`/accept-friend-request/${id}`);
     return {
         type: "ACCEPT_FRIEND_REQUEST",
         id: id
@@ -28,7 +28,7 @@ export async function acceptFriendsRequest(id) {
 }
 
 export async function endFriendship(id) {
-    await axios.post(`/accept-friendship/${id}`);
+    await axios.post(`/end-friendship/${id}`);
     return {
         type: "UNFRIEND",
         id: id

@@ -25,18 +25,48 @@ export default function UseFriendsAndWannabes() {
         return <h1>nope</h1>;
     }
     return (
-        <div>
-            <p>FRIENDS:</p>
+        <>
+            <p>your friends:</p>
             {friends &&
                 friends.map(friend => (
-                    <div key={friend.id}>{friend.first}</div>
+                    <div key={friend.id} className="profile">
+                        <div className="profilePic">
+                            <img src={friend.url} />
+                        </div>
+                        <div className="profileNameAndBio">
+                            <p>{`${friend.first} ${friend.last}`}</p>
+                            <button
+                                onClick={e =>
+                                    dispatch(action.endFriendship(friend.id))
+                                }
+                            >
+                                end friendship
+                            </button>
+                        </div>
+                    </div>
                 ))}
 
-            <p>WANNABES</p>
+            <p>people that want to be your friends:</p>
             {wannabes &&
-                wannabes.map(wannabes => (
-                    <div key={wannabes.id}>{wannabes.first}</div>
+                wannabes.map(wannabe => (
+                    <div key={wannabe.id} className="profile">
+                        <div className="profilePic">
+                            <img src={wannabe.url} />
+                        </div>
+                        <div className="profileNameAndBio">
+                            <p>{`${wannabe.first} ${wannabe.last}`}</p>
+                            <button
+                                onClick={e =>
+                                    dispatch(
+                                        action.acceptFriendRequest(wannabe.id)
+                                    )
+                                }
+                            >
+                                accept friend request
+                            </button>
+                        </div>
+                    </div>
                 ))}
-        </div>
+        </>
     );
 }
