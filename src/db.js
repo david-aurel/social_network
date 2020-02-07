@@ -89,10 +89,15 @@ exports.endFriendship = (id1, id2) => {
 exports.getFriendsAndWannabes = async id => {
     console.log("id:", id);
 
-    const {
-        rows
-    } = await db.query(
-        `SELECT * FROM friendships WHERE (recipient_id = $1 AND accepted = false) OR ((recipient_id = $1 OR sender_id=$1) AND accepted = true)`,
+    const { rows } = await db.query(
+        `
+      SELECT users.id, first, last, url, accepted
+      FROM friendships
+      JOIN users
+      ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+      OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+      OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+  `,
         [id]
     );
     return rows;
