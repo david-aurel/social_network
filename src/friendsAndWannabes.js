@@ -21,9 +21,6 @@ export default function UseFriendsAndWannabes() {
         })();
     }, []);
 
-    if (!friends) {
-        return <h1>nope</h1>;
-    }
     return (
         <>
             <p>your friends:</p>
