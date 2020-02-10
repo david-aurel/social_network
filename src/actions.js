@@ -42,3 +42,11 @@ export async function receiveHotOrNotUser() {
         user: data
     };
 }
+
+export async function sendFriendRequest(id) {
+    const { data } = await axios.post(`/make-friend-request/${id}`);
+    return {
+        type: "HOTORNOT",
+        user: data
+    };
+}

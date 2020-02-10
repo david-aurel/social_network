@@ -103,7 +103,7 @@ exports.getFriendsAndWannabes = async id => {
 
 exports.getHotOrNot = async id => {
     const { rows } = await db.query(
-        `SELECT users.id, first, last, url, accepted
+        `SELECT users.id, first, last, url, bio
       FROM users
       LEFT JOIN friendships
       ON (recipient_id = $1 AND sender_id = users.id)
