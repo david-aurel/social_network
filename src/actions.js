@@ -34,3 +34,11 @@ export async function endFriendship(id) {
         id: id
     };
 }
+
+export async function receiveHotOrNotUser() {
+    const { data } = await axios.get("/hotornot.json");
+    return {
+        type: "HOTORNOT",
+        user: data
+    };
+}

@@ -43,5 +43,12 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type === "HOTORNOT") {
+        state = {
+            ...state,
+            user: action.user
+        };
+    }
+
     return state;
 }

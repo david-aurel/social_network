@@ -100,3 +100,15 @@ exports.getFriendsAndWannabes = async id => {
     );
     return rows;
 };
+
+exports.getHotOrNot = async id => {
+    const { rows } = await db.query(
+        `SELECT users.id, first, last, url, accepted
+      FROM users
+      LEFT JOIN friendships
+      ON (recipient_id = $1 AND sender_id = users.id)
+      OR (sender_id = $1 AND recipient_id = users.id) WHERE accepted IS NULL`,
+        [id]
+    );
+    return rows;
+};

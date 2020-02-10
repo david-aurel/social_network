@@ -8,6 +8,7 @@ import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import Users from "./findPeople";
 import UseFriendsAndWannabes from "./friendsAndWannabes";
+import HotOrNot from "./hotornot";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -108,6 +109,9 @@ export default class App extends React.Component {
 
                     {/* Friends and Wannabes */}
                     <Route path="/friends" component={UseFriendsAndWannabes} />
+
+                    {/* Hot or not */}
+                    <Route path="/hotornot" component={HotOrNot} />
                 </div>
             </BrowserRouter>
         );
