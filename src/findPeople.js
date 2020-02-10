@@ -8,6 +8,7 @@ export default function Users() {
     useEffect(() => {
         if (!input) {
             (async () => {
+                setSearchResults([]);
                 try {
                     const { data } = await axios.get("/mostRecentUsers");
                     setMostRecent(data);
@@ -15,7 +16,7 @@ export default function Users() {
                     console.log("err in mostRecentUsers Users-Hook:", err);
                 }
             })();
-        } else {
+        } else if (input.replace(/\s/g, "").length) {
             let abort;
             (async () => {
                 try {
@@ -25,7 +26,6 @@ export default function Users() {
                     if (!abort) {
                         setSearchResults(data);
                     }
-                    console.log(searchResults);
                 } catch (err) {
                     console.log("err in SearchUser Users-Hook", err);
                 }
