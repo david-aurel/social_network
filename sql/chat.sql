@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS chat;
+
+CREATE TABLE chat
+(
+    id SERIAL PRIMARY KEY,
+    msg VARCHAR,
+    sender_id INT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
