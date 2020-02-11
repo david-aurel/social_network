@@ -112,3 +112,10 @@ exports.getHotOrNot = async id => {
     );
     return rows;
 };
+
+exports.getLastChatMessages = async () => {
+    const { rows } = await db.query(
+        `SELECT * FROM chat ORDER BY id DESC LIMIT 10`
+    );
+    return rows;
+};
