@@ -9,7 +9,7 @@ export default function Chat() {
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
-            socket.emit("My amazing chat message", e.target.value);
+            socket.emit("new chat message", e.target.value);
             e.target.value = "";
         }
     };

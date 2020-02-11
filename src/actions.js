@@ -50,3 +50,10 @@ export async function sendFriendRequest(id) {
         user: data
     };
 }
+
+export async function chatMessages(msgs) {
+    return {
+        type: "CHAT_MESSAGES",
+        msgs: msgs
+    };
+}

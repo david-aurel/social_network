@@ -50,5 +50,12 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type === "CHAT_MESSAGES") {
+        state = {
+            ...state,
+            msgs: action.msgs
+        };
+    }
+
     return state;
 }

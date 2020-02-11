@@ -375,18 +375,7 @@ io.on("connection", async function(socket) {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
-
     const userId = socket.request.session.userId;
-
-    socket.on("My amazing chat message", msg => {
-        console.log("on the server...:", msg);
-        io.sockets.emit("muffin", msg);
-    });
-
-    // try {
-    //     const data = db.getLastChatMessages();
-    // } catch (err) {
-    //     console.log("err in server side socket, get last chat messages:", err);
-    // }
-    /* ... */
+    const msgs = await db.getLastChatMessages();
+    socket.emit("chatMessages", msgs);
 });
