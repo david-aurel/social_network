@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { socket } from "./socket";
 
 export default function Chat() {
-    const chatMessages = useSelector(state => state.chatMessages);
+    const chatMessages = useSelector(state => state.msgs);
     console.log("chatMessages:", chatMessages);
 
     const keyCheck = e => {
@@ -25,17 +25,10 @@ export default function Chat() {
         <div className="chat">
             <h1>CHATROOM!</h1>
             <div className="chat-container" ref={elemRef}>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
+                {chatMessages &&
+                    chatMessages.map(message => (
+                        <p key={message.id}>{message.msg}</p>
+                    ))}
             </div>
             <textarea
                 placeholder="add your message here"
