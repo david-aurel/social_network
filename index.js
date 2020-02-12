@@ -378,4 +378,10 @@ io.on("connection", async function(socket) {
     const userId = socket.request.session.userId;
     const msgs = await db.getLastChatMessages();
     socket.emit("chatMessages", msgs);
+
+    socket.on("chatMessage", async msg => {
+        console.log("msg in index.js:", msg, userId);
+        const newMsgObj = await db.addNewMessage(msg, userId);
+        io.sockets.emit("chatMessage", newMsgObj[0]);
+    });
 });

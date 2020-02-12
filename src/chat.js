@@ -9,7 +9,8 @@ export default function Chat() {
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
-            socket.emit("new chat message", e.target.value);
+            socket.emit("chatMessage", e.target.value);
+
             e.target.value = "";
         }
     };
@@ -19,7 +20,7 @@ export default function Chat() {
     useEffect(() => {
         let { scrollHeight, clientHeight } = elemRef.current;
         elemRef.current.scrollTop = scrollHeight - clientHeight;
-    }, []);
+    }, [chatMessages]);
 
     return (
         <div className="chat">

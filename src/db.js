@@ -117,14 +117,14 @@ exports.getLastChatMessages = async () => {
     const { rows } = await db.query(
         `SELECT * FROM chat ORDER BY id DESC LIMIT 10`
     );
-    return rows;
+    return rows.slice(0).reverse();
 };
 
 exports.addNewMessage = async (msg, id) => {
     const {
         rows
     } = await db.query(
-        `WITH inserted AS (INSERT INTO chat (msg, sender_id) VALUES ($1, $2) RETURNING *) SELECT users.id, inserted.msg, users.first, users.last, users.url FROM inserted INNER JOIN users ON inserted.sender_id = users.id WHERE users.id = $2`,
+        `WITH inserted AS (INSERT INTO chat (msg, sender_id) VALUES ($1, $2) RETURNING *) SELECT users.id, inserted.created_at, inserted.msg, users.first, users.last, users.url FROM inserted INNER JOIN users ON inserted.sender_id = users.id WHERE users.id = $2`,
         [msg, id]
     );
     return rows;

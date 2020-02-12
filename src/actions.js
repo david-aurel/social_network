@@ -57,3 +57,10 @@ export async function chatMessages(msgs) {
         msgs: msgs
     };
 }
+
+export async function chatMessage(msg) {
+    return {
+        type: "CHAT_MESSAGE",
+        msg: msg
+    };
+}
