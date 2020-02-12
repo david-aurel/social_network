@@ -106,11 +106,13 @@ nav {
     grid-column: 1 / 3;
 }
 
-/* Friend requests */
-.wannabes {
-    margin: 35px 0;
+/* Friend and wannabes */
+.wannabes,
+.friends {
+    margin: 35px 0 0 0;
 }
-.wannabes-title {
+.wannabes-title,
+.friends-title {
     text-align: center;
     font-weight: bold;
     margin-bottom: 5px;
@@ -157,6 +159,10 @@ nav {
 .delete-button {
     color: #ed0404;
     border: 1px solid #ed0404;
+}
+
+.friends-profile {
+    display: flex;
 }
 
 /* Search results */

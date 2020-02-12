@@ -65,28 +65,48 @@ export default function UseFriendsAndWannabes() {
             );
         }
     }
+
+    function friendsContent() {
+        if (friends.length) {
+            return (
+                <div className="friends">
+                    <p className="friends-title">{friends.length} Friends</p>
+                    {friends &&
+                        friends.map(friend => (
+                            <div key={friend.id} className="friends-profile">
+                                <div className="friends-profile-pic">
+                                    <img src={friend.url} />
+                                </div>
+                                <div className="friends-name">
+                                    <p>{`${friend.first} ${friend.last}`}</p>
+                                    <button
+                                        className="remove-friends-button"
+                                        onClick={e =>
+                                            dispatch(
+                                                action.endFriendship(friend.id)
+                                            )
+                                        }
+                                    >
+                                        remove
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
+            );
+        } else {
+            return (
+                <div className="friends">
+                    <p className="friends-title">No friends yet</p>;
+                </div>
+            );
+        }
+    }
     return (
         <>
             {wannabes && wannabesContent()}
-            <p>your friends:</p>
-            {friends &&
-                friends.map(friend => (
-                    <div key={friend.id} className="profile">
-                        <div className="profilePic">
-                            <img src={friend.url} />
-                        </div>
-                        <div className="profileNameAndBio">
-                            <p>{`${friend.first} ${friend.last}`}</p>
-                            <button
-                                onClick={e =>
-                                    dispatch(action.endFriendship(friend.id))
-                                }
-                            >
-                                end friendship
-                            </button>
-                        </div>
-                    </div>
-                ))}
+
+            {friends && friendsContent()}
         </>
     );
 }
