@@ -63,3 +63,21 @@ img {
     height: 300px;
     overflow-y: scroll;
 }
+.chatProfilePic {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.chatprofilePic img {
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.chat-msg {
+    display: flex;
+    margin: 10px 0;
+}
+
+.chat-msg span {
+    margin: 0 2px;
+}

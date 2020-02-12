@@ -115,7 +115,7 @@ exports.getHotOrNot = async id => {
 
 exports.getLastChatMessages = async () => {
     const { rows } = await db.query(
-        `SELECT * FROM chat ORDER BY id DESC LIMIT 10`
+        `SELECT * FROM chat INNER JOIN users ON chat.sender_id = users.id ORDER BY chat.sender_id DESC LIMIT 10`
     );
     return rows.slice(0).reverse();
 };

@@ -52,6 +52,9 @@ export default class App extends React.Component {
                         <div className="friends">
                             <Link to="/friends">Friends</Link>
                         </div>
+                        <div>
+                            <Link to="/chat">Chat</Link>
+                        </div>
 
                         <ProfilePic
                             className="profilePicIcon"

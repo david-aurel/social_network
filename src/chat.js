@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
+import ProfilePic from "./profilePic";
 
 export default function Chat() {
     const chatMessages = useSelector(state => state.msgs);
@@ -27,8 +28,19 @@ export default function Chat() {
             <h1>CHATROOM!</h1>
             <div className="chat-container" ref={elemRef}>
                 {chatMessages &&
-                    chatMessages.map(message => (
-                        <p key={message.id}>{message.msg}</p>
+                    chatMessages.map((message, idx) => (
+                        <div className="chat-msg" key={idx}>
+                            <ProfilePic
+                                className="chatProfilePic"
+                                first={message.first}
+                                last={message.last}
+                                url={message.url}
+                            />
+
+                            <span>{`${message.first} ${message.last}:`}</span>
+                            <span>{message.msg}</span>
+                            <span>{`(${message.created_at})`}</span>
+                        </div>
                     ))}
             </div>
             <textarea
