@@ -1,6 +1,14 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+
+/* Header */
+.header {
+    margin: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
 }
 
 /* auth */
@@ -28,6 +36,14 @@ nav {
 }
 
 /* Profiles */
+
+.burger-icon {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    float: right;
+    margin: 20px;
+}
 .profilePicIcon {
     width: 40px;
     height: 40px;

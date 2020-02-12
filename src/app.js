@@ -40,20 +40,28 @@ export default class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <div>
-                    {/* Uploader */}
-                    {this.state.uploaderIsVisible && (
-                        <Upload
-                            setProfilePicUrl={url => this.setProfilePicUrl(url)}
-                            toggleUpload={() => this.toggleUpload()}
-                        />
-                    )}
+                {/* Header */}
+                <div className="header">
+                    <h4>social network</h4>
+                </div>
 
-                    {/* Own Profile */}
-                    <Route
-                        exact
-                        path="/"
-                        render={() => (
+                {/* Uploader */}
+                {this.state.uploaderIsVisible && (
+                    <Upload
+                        setProfilePicUrl={url => this.setProfilePicUrl(url)}
+                        toggleUpload={() => this.toggleUpload()}
+                    />
+                )}
+
+                {/* Own Profile */}
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <>
+                            <div className="burger-icon">
+                                <img src="/icons/burger-icon.svg" />
+                            </div>
                             <Profile
                                 first={this.state.first}
                                 last={this.state.last}
@@ -70,54 +78,54 @@ export default class App extends React.Component {
                                 bio={this.state.bio}
                                 setBio={bio => this.setBio(bio)}
                             />
-                        )}
-                    />
+                        </>
+                    )}
+                />
 
-                    {/* Other Profile */}
-                    <Route
-                        path="/user/:id"
-                        render={props => (
-                            <OtherProfile
-                                key={props.match.url}
-                                match={props.match}
-                                history={props.history}
-                            />
-                        )}
-                    />
-
-                    {/* Find People */}
-                    <Route path="/users" component={Users} />
-
-                    {/* Friends and Wannabes */}
-                    <Route path="/friends" component={UseFriendsAndWannabes} />
-
-                    {/* Hot or not */}
-                    <Route path="/hotornot" component={HotOrNot} />
-
-                    {/* Chat */}
-                    <Route path="/chat" component={Chat} />
-
-                    {/* Nav */}
-                    <nav>
-                        <div>
-                            <Link to="/chat">
-                                <img src="/icons/chat-icon.svg" />
-                            </Link>
-                        </div>
-                        <div className="findPeople">
-                            <Link to="/users">
-                                <img src="/icons/search-icon.svg" />
-                            </Link>
-                        </div>
-                        <ProfilePic
-                            className="profilePicIcon"
-                            first={this.state.first}
-                            last={this.state.last}
-                            toggleUpload={() => this.toggleUpload()}
-                            url={this.state.url}
+                {/* Other Profile */}
+                <Route
+                    path="/user/:id"
+                    render={props => (
+                        <OtherProfile
+                            key={props.match.url}
+                            match={props.match}
+                            history={props.history}
                         />
-                    </nav>
-                </div>
+                    )}
+                />
+
+                {/* Find People */}
+                <Route path="/users" component={Users} />
+
+                {/* Friends and Wannabes */}
+                <Route path="/friends" component={UseFriendsAndWannabes} />
+
+                {/* Hot or not */}
+                <Route path="/hotornot" component={HotOrNot} />
+
+                {/* Chat */}
+                <Route path="/chat" component={Chat} />
+
+                {/* Nav */}
+                <nav>
+                    <div>
+                        <Link to="/chat">
+                            <img src="/icons/chat-icon.svg" />
+                        </Link>
+                    </div>
+                    <div className="findPeople">
+                        <Link to="/users">
+                            <img src="/icons/search-icon.svg" />
+                        </Link>
+                    </div>
+                    <ProfilePic
+                        className="profilePicIcon"
+                        first={this.state.first}
+                        last={this.state.last}
+                        toggleUpload={() => this.toggleUpload()}
+                        url={this.state.url}
+                    />
+                </nav>
             </BrowserRouter>
         );
     }
