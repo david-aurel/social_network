@@ -20,9 +20,54 @@ export default function UseFriendsAndWannabes() {
             dispatch(action.receiveFriendsAndWannabes());
         })();
     }, []);
+    function wannabesContent() {
+        if (wannabes.length) {
+            return (
+                <div className="wannabes">
+                    <p className="wannabes-title">
+                        {wannabes.length} Friend Requests
+                    </p>
 
+                    <div className="wannabe-profiles-wrapper">
+                        {wannabes.map(wannabe => (
+                            <div key={wannabe.id} className="wannabe-profile">
+                                <div className="wannabe-profile-pic">
+                                    <img src={wannabe.url} />
+                                </div>
+                                <div className="profile-buttons">
+                                    <button
+                                        className="accept-button"
+                                        onClick={e =>
+                                            dispatch(
+                                                action.acceptFriendRequest(
+                                                    wannabe.id
+                                                )
+                                            )
+                                        }
+                                    >
+                                        accept
+                                    </button>
+                                    <button
+                                        className="delete-button"
+                                        onClick={e =>
+                                            dispatch(
+                                                action.endFriendship(wannabe.id)
+                                            )
+                                        }
+                                    >
+                                        delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+    }
     return (
         <>
+            {wannabes && wannabesContent()}
             <p>your friends:</p>
             {friends &&
                 friends.map(friend => (
@@ -38,28 +83,6 @@ export default function UseFriendsAndWannabes() {
                                 }
                             >
                                 end friendship
-                            </button>
-                        </div>
-                    </div>
-                ))}
-
-            <p>people that want to be your friends:</p>
-            {wannabes &&
-                wannabes.map(wannabe => (
-                    <div key={wannabe.id} className="profile">
-                        <div className="profilePic">
-                            <img src={wannabe.url} />
-                        </div>
-                        <div className="profileNameAndBio">
-                            <p>{`${wannabe.first} ${wannabe.last}`}</p>
-                            <button
-                                onClick={e =>
-                                    dispatch(
-                                        action.acceptFriendRequest(wannabe.id)
-                                    )
-                                }
-                            >
-                                accept friend request
                             </button>
                         </div>
                     </div>

@@ -78,6 +78,7 @@ export default class App extends React.Component {
                                 bio={this.state.bio}
                                 setBio={bio => this.setBio(bio)}
                             />
+                            <UseFriendsAndWannabes />
                         </>
                     )}
                 />
