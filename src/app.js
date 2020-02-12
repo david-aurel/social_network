@@ -41,29 +41,6 @@ export default class App extends React.Component {
         return (
             <BrowserRouter>
                 <div>
-                    {/* Header */}
-                    <nav>
-                        <div className="logo">
-                            <img id="test" src="/icons/logo.svg" />
-                        </div>
-                        <div className="findPeople">
-                            <Link to="/users">Find People</Link>
-                        </div>
-                        <div className="friends">
-                            <Link to="/friends">Friends</Link>
-                        </div>
-                        <div>
-                            <Link to="/chat">Chat</Link>
-                        </div>
-
-                        <ProfilePic
-                            className="profilePicIcon"
-                            first={this.state.first}
-                            last={this.state.last}
-                            toggleUpload={() => this.toggleUpload()}
-                        />
-                    </nav>
-
                     {/* Uploader */}
                     {this.state.uploaderIsVisible && (
                         <Upload
@@ -119,6 +96,27 @@ export default class App extends React.Component {
 
                     {/* Chat */}
                     <Route path="/chat" component={Chat} />
+
+                    {/* Nav */}
+                    <nav>
+                        <div>
+                            <Link to="/chat">
+                                <img src="/icons/chat-icon.svg" />
+                            </Link>
+                        </div>
+                        <div className="findPeople">
+                            <Link to="/users">
+                                <img src="/icons/search-icon.svg" />
+                            </Link>
+                        </div>
+                        <ProfilePic
+                            className="profilePicIcon"
+                            first={this.state.first}
+                            last={this.state.last}
+                            toggleUpload={() => this.toggleUpload()}
+                            url={this.state.url}
+                        />
+                    </nav>
                 </div>
             </BrowserRouter>
         );
