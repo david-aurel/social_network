@@ -47,7 +47,7 @@ function wrapInAuthForm(Component, url) {
 function LoginForm({ handleInput, handleSubmit, error }) {
     return (
         <div className="login">
-            <h4>Login</h4>
+            <h2>Login</h2>
             {error && (
                 <div className="error">
                     something went wrong, please try again.
@@ -67,7 +67,9 @@ function LoginForm({ handleInput, handleSubmit, error }) {
             />
             <button onClick={handleSubmit}>Log in</button>
             <Link to="/">Click here to register</Link>
-            <Link to="/reset">Forgot password?</Link>
+            <Link id="forgot-password" to="/reset">
+                Forgot password?
+            </Link>
         </div>
     );
 }
@@ -75,18 +77,24 @@ function LoginForm({ handleInput, handleSubmit, error }) {
 function RegistrationForm({ handleInput, handleSubmit, error }) {
     return (
         <div className="registration">
-            <h4>Register</h4>
+            <h2>Sign up</h2>
             {error && (
                 <div className="error">
                     something went wrong, please try again.
                 </div>
             )}
-            <input
-                name="first"
-                onChange={handleInput}
-                placeholder="first name"
-            />
-            <input name="last" onChange={handleInput} placeholder="last name" />
+            <div className="single-input-registration">
+                <input
+                    name="first"
+                    onChange={handleInput}
+                    placeholder="first name"
+                />
+                <input
+                    name="last"
+                    onChange={handleInput}
+                    placeholder="last name"
+                />
+            </div>
             <input
                 name="email"
                 onChange={handleInput}
@@ -99,8 +107,9 @@ function RegistrationForm({ handleInput, handleSubmit, error }) {
                 type="password"
                 placeholder="password"
             />
-            <button onClick={handleSubmit}>register</button>
-            <Link to="/login">Click here to log in</Link>
+            <button onClick={handleSubmit}>Submit</button>
+            <p className="or-tag">OR</p>
+            <Link to="/login">Log in</Link>
         </div>
     );
 }

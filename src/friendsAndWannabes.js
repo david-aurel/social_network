@@ -110,10 +110,10 @@ export default function UseFriendsAndWannabes() {
         }
     }
     return (
-        <>
+        <div className="faw-wrapper">
             {wannabes && wannabesContent()}
 
             {friends && friendsContent()}
-        </>
+        </div>
     );
 }

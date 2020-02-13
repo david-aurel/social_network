@@ -20,6 +20,7 @@ img {
     right: 0;
     opacity: 0.8;
     transition: 0.5s;
+    z-index: 3;
 }
 
 .title {
@@ -145,6 +146,10 @@ nav {
 }
 
 /* Friend and wannabes */
+.faw-wrapper {
+    height: 54vh;
+    overflow-y: scroll;
+}
 .wannabes,
 .friends {
     margin: 35px 0 0 0;
@@ -240,7 +245,7 @@ nav {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 1;
+    z-index: 5;
     background: white;
     border-top-left-radius: 35px;
     border-top-right-radius: 35px;
@@ -252,6 +257,7 @@ nav {
 .cancel-button {
     display: block;
     margin: 0 0 20px 0;
+    font-size: 1.2rem;
 }
 
 .edit-profile-content {
@@ -493,6 +499,95 @@ nav {
     padding: 30px;
     transform: translateY(100%);
     transition: 0.5s;
+    z-index: 5;
+}
+
+.logout button {
+    border: 1px solid tomato;
+    border-radius: 5px;
+    text-decoration: none;
+    color: tomato;
+    width: 100%;
+    padding: 11px;
+    font-weight: bold;
+    background: white;
+}
+
+/* auth */
+.welcome {
+    height: 100vh;
+    background: rgb(50, 50, 50);
+}
+
+.auth-menu {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 35px;
+}
+
+.welcome h2 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+}
+
+.auth-menu input {
+    background: white;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.auth-menu button {
+    border: 1px solid black;
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: bold;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.auth-menu a {
+    text-decoration: none;
+    margin-top: 20px;
+    background: #319cff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.single-input-registration {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-input-registration input {
+    width: 48%;
+}
+
+.or-tag {
+    margin: 50px 0;
+    text-align: center;
+}
+
+#forgot-password {
+    cursor: pointer;
+    margin: 50px auto;
+    background: none;
+    text-decoration: underline;
+    color: tomato;
 }
 
 /* animation */

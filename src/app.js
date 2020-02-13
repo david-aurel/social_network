@@ -56,7 +56,9 @@ export default class App extends React.Component {
                 />
                 {/* Logout */}
                 <Logout
-                    toggleLogout={this.toggleLogout}
+                    toggleLogout={() => {
+                        this.toggleLogout();
+                    }}
                     logoutIsVisible={this.state.logoutIsVisible}
                 />
 

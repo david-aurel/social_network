@@ -10,9 +10,11 @@ export default class Welcome extends React.Component {
     render() {
         return (
             <HashRouter>
-                <div>
-                    <h1>Welcome to nice!</h1>
-                    <div>
+                <div className="welcome">
+                    <div className="header">
+                        <h4>social network</h4>
+                    </div>
+                    <div className="auth-menu">
                         <Route exact path="/" component={Registration} />
                         <Route path="/login" component={Login} />
                         <Route path="/reset" component={Reset} />

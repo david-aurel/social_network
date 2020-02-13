@@ -30,9 +30,9 @@ export default function upload({
                 uploaderIsVisible ? "modal-animation" : undefined
             }`}
         >
-            <button onClick={toggleUpload} className="cancel-button">
+            <p onClick={toggleUpload} className="cancel-button">
                 cancel
-            </button>
+            </p>
 
             <div className="edit-profile-content">
                 <label htmlFor="file">

@@ -46,10 +46,12 @@ export default class Reset extends React.Component {
             );
         } else if (step == 3) {
             return (
-                <div>
+                <>
                     <p>Success!</p>
-                    <Link to="/login">Log in</Link>
-                </div>
+                    <div style={{ marginTop: "30px" }}>
+                        <Link to="/login">Log in</Link>
+                    </div>
+                </>
             );
         }
     }
@@ -99,7 +101,7 @@ export default class Reset extends React.Component {
     render() {
         return (
             <div>
-                <h4>Reset Password</h4>
+                <h2>Reset Password</h2>
                 {this.state.error && (
                     <div className="error">
                         something went wrong, please try again.

@@ -7,7 +7,12 @@ export default function Logout({ toggleLogout, logoutIsVisible }) {
                 logoutIsVisible ? "modal-animation" : undefined
             }`}
         >
-            <a href="/logout">Log out</a>
+            <p onClick={toggleLogout} className="cancel-button">
+                cancel
+            </p>
+            <a href="/logout">
+                <button>Log out</button>
+            </a>
         </div>
     );
 }
