@@ -10,12 +10,14 @@ import Users from "./findPeople";
 import UseFriendsAndWannabes from "./friendsAndWannabes";
 import HotOrNot from "./hotornot";
 import Chat from "./chat";
+import Logout from "./logout";
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uploaderIsVisible: false
+            uploaderIsVisible: false,
+            logoutIsVisible: false
         };
     }
     async componentDidMount() {
@@ -25,6 +27,11 @@ export default class App extends React.Component {
     toggleUpload() {
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
+        });
+    }
+    toggleLogout() {
+        this.setState({
+            logoutIsVisible: !this.state.logoutIsVisible
         });
     }
     setProfilePicUrl(url) {
@@ -41,18 +48,23 @@ export default class App extends React.Component {
         return (
             <BrowserRouter>
                 {/* Uploader */}
-
                 <Upload
                     setProfilePicUrl={url => this.setProfilePicUrl(url)}
                     toggleUpload={() => this.toggleUpload()}
                     uploaderIsVisible={this.state.uploaderIsVisible}
                     setBio={bio => this.setBio(bio)}
                 />
+                {/* Logout */}
+                <Logout
+                    toggleLogout={this.toggleLogout}
+                    logoutIsVisible={this.state.logoutIsVisible}
+                />
 
                 {/* dimmed background */}
                 <div
                     className={
-                        this.state.uploaderIsVisible
+                        this.state.uploaderIsVisible ||
+                        this.state.logoutIsVisible
                             ? "dimmed-background"
                             : undefined
                     }
@@ -61,7 +73,12 @@ export default class App extends React.Component {
                 <div className="header">
                     <h4>social network</h4>
                 </div>
-                <div className="burger-icon">
+                <div
+                    className="burger-icon"
+                    onClick={() => {
+                        this.toggleLogout();
+                    }}
+                >
                     <img src="/icons/burger-icon.svg" />
                 </div>
 

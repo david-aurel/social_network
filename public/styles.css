@@ -249,11 +249,6 @@ nav {
     padding: 20px 20px 60px 20px;
 }
 
-.modal-animation {
-    transform: translateY(0%);
-    transition: 0.5s;
-}
-
 .cancel-button {
     display: block;
     margin: 0 0 20px 0;
@@ -481,4 +476,27 @@ nav {
     object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
+}
+
+/* Logout */
+
+.logout {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 400px;
+    background: white;
+    z-index: 1;
+    padding: 30px;
+    transform: translateY(100%);
+    transition: 0.5s;
+}
+
+/* animation */
+.modal-animation {
+    transform: translateY(0%);
+    transition: 0.5s;
 }
