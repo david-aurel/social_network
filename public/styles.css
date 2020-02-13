@@ -145,6 +145,11 @@ nav {
     margin: 10px 20px;
 }
 
+.wannabe-profile-pic {
+    height: 100%;
+    width: 100%;
+}
+
 .wannabe-profile img {
     object-fit: cover;
     border-radius: 50%;
@@ -154,7 +159,7 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 5px;
+    margin: 5px 0;
 }
 
 .accept-button,
@@ -191,6 +196,11 @@ nav {
 .friends-profile-pic img {
     object-fit: cover;
     border-radius: 50%;
+}
+
+.friends-name {
+    color: black;
+    text-decoration: none;
 }
 
 .remove-friends-button {

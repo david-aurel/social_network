@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import * as action from "./actions";
 
 export default function UseFriendsAndWannabes() {
@@ -31,9 +32,11 @@ export default function UseFriendsAndWannabes() {
                     <div className="wannabe-profiles-wrapper">
                         {wannabes.map(wannabe => (
                             <div key={wannabe.id} className="wannabe-profile">
-                                <div className="wannabe-profile-pic">
-                                    <img src={wannabe.url} />
-                                </div>
+                                <Link to={`/user/${wannabe.id}`}>
+                                    <div className="wannabe-profile-pic">
+                                        <img src={wannabe.url} />
+                                    </div>
+                                </Link>
                                 <div className="profile-buttons">
                                     <button
                                         className="accept-button"
@@ -74,12 +77,18 @@ export default function UseFriendsAndWannabes() {
                     {friends &&
                         friends.map(friend => (
                             <div key={friend.id} className="friends-profile">
-                                <div className="friends-profile-pic">
+                                <Link
+                                    to={`/user/${friend.id}`}
+                                    className="friends-profile-pic"
+                                >
                                     <img src={friend.url} />
-                                </div>
-                                <div className="friends-name">
-                                    <p>{`${friend.first} ${friend.last}`}</p>
-                                </div>
+                                </Link>
+                                <Link
+                                    to={`/user/${friend.id}`}
+                                    className="friends-name"
+                                >
+                                    {`${friend.first} ${friend.last}`}
+                                </Link>
                                 <button
                                     className="remove-friends-button"
                                     onClick={e =>
