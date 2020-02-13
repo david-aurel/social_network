@@ -46,6 +46,7 @@ export default class App extends React.Component {
                     setProfilePicUrl={url => this.setProfilePicUrl(url)}
                     toggleUpload={() => this.toggleUpload()}
                     uploaderIsVisible={this.state.uploaderIsVisible}
+                    setBio={bio => this.setBio(bio)}
                 />
 
                 {/* dimmed background */}

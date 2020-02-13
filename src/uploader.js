@@ -4,14 +4,25 @@ import axios from "./axios";
 export default function upload({
     setProfilePicUrl,
     toggleUpload,
-    uploaderIsVisible
+    uploaderIsVisible,
+    setBio
 }) {
+    let newBio = "";
+
     async function uploadImage(e) {
         toggleUpload();
         let formData = new FormData();
         formData.append("file", e.target.files[0]);
         const { data } = await axios.post(`/uploadProfilePic/`, formData);
         setProfilePicUrl(data.imageUrl);
+    }
+    async function handleSubmit() {
+        await axios.post("/updateBio", { bio: newBio });
+        setBio(newBio);
+        toggleUpload();
+    }
+    function handleChange(e) {
+        newBio = e.target.value;
     }
     return (
         <div
@@ -31,7 +42,12 @@ export default function upload({
                 </label>
 
                 <div className="edit-bio">
-                    <textarea placeholder="Bio..."></textarea>
+                    <textarea
+                        onChange={e => {
+                            handleChange(e);
+                        }}
+                        placeholder="Bio..."
+                    ></textarea>
                 </div>
                 <input
                     name="file"
@@ -41,7 +57,14 @@ export default function upload({
                     className="inputfile"
                 />
             </div>
-            <button className="done-button">Done</button>
+            <button
+                onClick={() => {
+                    handleSubmit();
+                }}
+                className="done-button"
+            >
+                Done
+            </button>
         </div>
     );
 }
