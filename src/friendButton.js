@@ -4,10 +4,11 @@ import axios from "./axios";
 export default function UseFriendButton({ id }) {
     const [buttonText, setButtonText] = useState("");
     const buttonTextArr = [
-        "make friend request",
-        "cancel friend request",
-        "accept friend request",
-        "end friendship"
+        "Add Friend",
+        "Cancel friend request",
+        "accept",
+        "End friendship",
+        "delete"
     ];
     useEffect(() => {
         (async () => {
@@ -35,7 +36,8 @@ export default function UseFriendButton({ id }) {
             url = "/make-friend-request";
         } else if (
             buttonText == buttonTextArr[1] ||
-            buttonText == buttonTextArr[3]
+            buttonText == buttonTextArr[3] ||
+            buttonText == buttonTextArr[4]
         ) {
             url = "/end-friendship";
         } else if (buttonText == buttonTextArr[2]) {
@@ -50,10 +52,43 @@ export default function UseFriendButton({ id }) {
                 setButtonText(buttonTextArr[0]);
             } else if (buttonText == buttonTextArr[2]) {
                 setButtonText(buttonTextArr[3]);
-            } else if (buttonText == buttonTextArr[3]) {
+            } else if (buttonText == buttonTextArr[3] || buttonTextArr[4]) {
                 setButtonText(buttonTextArr[0]);
             }
         }
     }
-    return <button onClick={handleSubmit}>{buttonText}</button>;
+
+    if (buttonText == buttonTextArr[2]) {
+        return (
+            <div className="profile-button-wrapper">
+                <button
+                    className="accept-button double-button"
+                    onClick={handleSubmit}
+                >
+                    {buttonTextArr[2]}
+                </button>
+                <button
+                    className="delete-button double-button"
+                    onClick={async () => {
+                        const { data } = await axios.post(
+                            `/end-friendship/${id}`
+                        );
+                        if (data == "OK") {
+                            setButtonText(buttonTextArr[0]);
+                        }
+                    }}
+                >
+                    {buttonTextArr[4]}
+                </button>
+            </div>
+        );
+    } else {
+        return (
+            <div className="profile-button-wrapper">
+                <button className="single-button" onClick={handleSubmit}>
+                    {buttonText}
+                </button>
+            </div>
+        );
+    }
 }

@@ -29,11 +29,11 @@ export default class OtherProfile extends Component {
                         <img src={this.state.url} />
                     </div>
                     <div className="profileNameAndBio">
-                        <p>{`${this.state.first} ${this.state.last}`}</p>
+                        <p className="profileName">{`${this.state.first} ${this.state.last}`}</p>
                         <p>{this.state.bio}</p>
                     </div>
+                    <UseFriendButton id={this.state.id} />
                 </div>
-                <UseFriendButton id={this.state.id} />
             </>
         );
     }

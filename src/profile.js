@@ -19,6 +19,7 @@ export default function Profile({
                 onClick={() => {
                     toggleUpload();
                 }}
+                className="edit-profile-button"
             >
                 Edit Profile
             </button>

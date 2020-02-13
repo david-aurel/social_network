@@ -39,7 +39,7 @@ export default function UseFriendsAndWannabes() {
                                 </Link>
                                 <div className="profile-buttons">
                                     <button
-                                        className="accept-button"
+                                        className="small-accept-button"
                                         onClick={e =>
                                             dispatch(
                                                 action.acceptFriendRequest(
@@ -51,7 +51,7 @@ export default function UseFriendsAndWannabes() {
                                         accept
                                     </button>
                                     <button
-                                        className="delete-button"
+                                        className="small-delete-button"
                                         onClick={e =>
                                             dispatch(
                                                 action.endFriendship(wannabe.id)
