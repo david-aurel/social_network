@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
 import ProfilePic from "./profilePic";
+import { Link } from "react-router-dom";
 
-export default function Chat() {
+export default function Chat({ id }) {
     const chatMessages = useSelector(state => state.msgs);
-    console.log("chatMessages:", chatMessages);
-
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -21,31 +20,34 @@ export default function Chat() {
     useEffect(() => {
         let { scrollHeight, clientHeight } = elemRef.current;
         elemRef.current.scrollTop = scrollHeight - clientHeight;
-    }, [chatMessages]);
+    }, [chatMessages, id]);
 
     return (
         <div className="chat">
-            <h1>CHATROOM!</h1>
             <div className="chat-container" ref={elemRef}>
                 {chatMessages &&
                     chatMessages.map((message, idx) => (
-                        <div className="chat-msg" key={idx}>
-                            <ProfilePic
-                                className="chatProfilePic"
-                                first={message.first}
-                                last={message.last}
-                                url={message.url}
-                            />
-
-                            <span>{`${message.first} ${message.last}:`}</span>
-                            <span>{message.msg}</span>
-                            <span>{`(${message.created_at})`}</span>
+                        <div
+                            className={`chat-msg ${
+                                message.id == id ? "self" : "other"
+                            }`}
+                            key={idx}
+                        >
+                            <Link
+                                to={`/user/${message.id}`}
+                                className="chat-profile-pic"
+                            >
+                                <img src={message.url} />
+                            </Link>
+                            <p className="chat-msg-bubble">{message.msg}</p>
                         </div>
                     ))}
             </div>
             <textarea
-                placeholder="add your message here"
+                className="chat-input"
+                placeholder="Message..."
                 onKeyDown={keyCheck}
+                rows="1"
             ></textarea>
         </div>
     );

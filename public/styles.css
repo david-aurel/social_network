@@ -417,25 +417,67 @@ nav {
 }
 
 /* chat */
+
+.chat {
+    padding: 0 20px;
+    width: 100vw;
+    position: absolute;
+    bottom: 55px;
+}
+
 .chat-container {
-    height: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: 75vh;
     overflow-y: scroll;
 }
-.chatProfilePic {
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
-}
-.chatprofilePic img {
-    object-fit: cover;
-    cursor: pointer;
-}
-
-.chat-msg {
-    display: flex;
+.chat-input {
+    width: 100%;
+    background: white;
+    border: 1px solid #c4c4c4;
+    border-radius: 20px;
+    padding: 10px;
     margin: 10px 0;
 }
+.chat-msg {
+    display: flex;
+    margin: 5px;
+    word-break: break-all;
+    width: 100%;
+}
+.self {
+    flex-direction: row-reverse;
+    padding-right: 10px;
+}
+.chat-msg-bubble {
+    word-break: break-all;
+    max-width: 80%;
+    margin: 0 10px;
+    border-radius: 20px;
+    padding: 10px;
+    max-width: 60%;
+    min-width: 35px;
+}
 
-.chat-msg span {
-    margin: 0 2px;
+.self .chat-msg-bubble {
+    background: #ebebeb;
+}
+
+.other .chat-msg-bubble {
+    border: 1px solid #c4c4c4;
+}
+
+.chat-msg:first-child {
+    margin: auto 0;
+}
+
+.chat-profile-pic {
+    transform: translateY(2px);
+}
+.chat-profile-pic img {
+    height: 33px;
+    width: 33px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
 }

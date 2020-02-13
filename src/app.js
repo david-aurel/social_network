@@ -115,7 +115,10 @@ export default class App extends React.Component {
                 <Route path="/hotornot" component={HotOrNot} />
 
                 {/* Chat */}
-                <Route path="/chat" component={Chat} />
+                <Route
+                    path="/chat"
+                    render={() => <Chat id={this.state.id} />}
+                />
 
                 {/* Nav */}
                 <nav>
