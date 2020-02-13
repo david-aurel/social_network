@@ -330,7 +330,7 @@ nav {
     border-radius: 10px;
     padding: 3px 45px;
     margin-bottom: 20px;
-    background: url("/icons/search-bar-icon.svg") #ebebeb 4% 55% no-repeat;
+    background: url("/icons/search-bar-icon.svg") #ebebeb 14px 56% no-repeat;
 }
 
 .search-bar::placeholder {
@@ -438,6 +438,7 @@ nav {
     border-radius: 20px;
     padding: 10px;
     margin: 10px 0;
+    resize: none;
 }
 .chat-msg {
     display: flex;
