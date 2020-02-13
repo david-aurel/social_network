@@ -24,15 +24,24 @@ export default function upload({
             </button>
 
             <div className="edit-profile-content">
-                <div className="edit-profile-pic">
-                    <img src="/icons/camera-icon.svg" />
-                </div>
+                <label htmlFor="file">
+                    <div className="edit-profile-pic">
+                        <img src="/icons/camera-icon.svg" />
+                    </div>
+                </label>
+
                 <div className="edit-bio">
                     <textarea placeholder="Bio..."></textarea>
                 </div>
+                <input
+                    name="file"
+                    id="file"
+                    type="file"
+                    onChange={e => uploadImage(e)}
+                    className="inputfile"
+                />
             </div>
             <button className="done-button">Done</button>
-            <input type="file" onChange={e => uploadImage(e)} />
         </div>
     );
 }
