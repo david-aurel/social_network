@@ -1,7 +1,11 @@
 import React from "react";
 import axios from "./axios";
 
-export default function upload({ setProfilePicUrl, toggleUpload }) {
+export default function upload({
+    setProfilePicUrl,
+    toggleUpload,
+    uploaderIsVisible
+}) {
     async function uploadImage(e) {
         toggleUpload();
         let formData = new FormData();
@@ -10,7 +14,12 @@ export default function upload({ setProfilePicUrl, toggleUpload }) {
         setProfilePicUrl(data.imageUrl);
     }
     return (
-        <div>
+        <div
+            className={`edit-profile ${
+                uploaderIsVisible ? "modal-animation" : undefined
+            }`}
+        >
+            <button onClick={toggleUpload}>cancel</button>
             <p>Want to change your image?</p>
             <input type="file" onChange={e => uploadImage(e)} />
         </div>

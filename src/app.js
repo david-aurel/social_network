@@ -40,18 +40,26 @@ export default class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
+                {/* Uploader */}
+
+                <Upload
+                    setProfilePicUrl={url => this.setProfilePicUrl(url)}
+                    toggleUpload={() => this.toggleUpload()}
+                    uploaderIsVisible={this.state.uploaderIsVisible}
+                />
+
+                {/* dimmed background */}
+                <div
+                    className={
+                        this.state.uploaderIsVisible
+                            ? "dimmed-background"
+                            : undefined
+                    }
+                ></div>
                 {/* Header */}
                 <div className="header">
                     <h4>social network</h4>
                 </div>
-
-                {/* Uploader */}
-                {this.state.uploaderIsVisible && (
-                    <Upload
-                        setProfilePicUrl={url => this.setProfilePicUrl(url)}
-                        toggleUpload={() => this.toggleUpload()}
-                    />
-                )}
 
                 {/* Own Profile */}
                 <Route
@@ -59,7 +67,12 @@ export default class App extends React.Component {
                     path="/"
                     render={() => (
                         <>
-                            <div className="burger-icon">
+                            <div
+                                className="burger-icon"
+                                onClick={() => {
+                                    this.toggleUpload();
+                                }}
+                            >
                                 <img src="/icons/burger-icon.svg" />
                             </div>
                             <Profile
@@ -77,6 +90,7 @@ export default class App extends React.Component {
                                 }
                                 bio={this.state.bio}
                                 setBio={bio => this.setBio(bio)}
+                                toggleUpload={() => this.toggleUpload()}
                             />
                             <UseFriendsAndWannabes />
                         </>

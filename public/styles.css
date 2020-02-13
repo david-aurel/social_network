@@ -11,6 +11,17 @@ img {
     height: 100%;
 }
 
+.dimmed-background {
+    background: black;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
 /* Header */
 .header {
     margin: 20px;
@@ -183,6 +194,25 @@ nav {
     background: white;
     border: 1px solid #c4c4c4;
     border-radius: 5px;
+}
+
+/* Edit Profile */
+.edit-profile {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background: white;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    transform: translateY(100%);
+    transition: 0.5s;
+}
+
+.modal-animation {
+    transform: translateY(0%);
+    transition: 0.5s;
 }
 
 /* Search results */
