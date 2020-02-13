@@ -43,52 +43,56 @@ export default function Users() {
     return (
         <div className="search">
             <div>
-                <input
-                    type="text"
-                    placeholder="Enter name"
-                    onChange={onChange}
-                    className="search-bar"
-                />
-                {searchResults.map((user, idx) => {
-                    return (
-                        <a href={`/user/${user.id}`} key={idx}>
-                            <div className="profile" key={idx}>
-                                <div className="profilePic">
-                                    <img src={user.url} />
-                                </div>
-                                <div className="profileNameAndBio">
-                                    <p>{`${user.first} ${user.last}`}</p>
-                                    <p>{user.bio}</p>
-                                </div>
-                            </div>
-                        </a>
-                    );
-                })}
-
-                <p className="title">People you might know</p>
-                <div className="pumk-wrapper">
-                    {mostRecent.map((user, idx) => {
+                <div className="search-bar-wrapper">
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        onChange={onChange}
+                        className="search-bar"
+                    />
+                </div>
+                <div className="search-container">
+                    {searchResults.map((user, idx) => {
                         return (
-                            <div className="pumk-profile" key={idx}>
-                                <div>
-                                    <Link to={`/user/${user.id}`}>
-                                        <div className="pumk-profile-pic">
-                                            <img src={user.url} />
-                                        </div>
-                                    </Link>
-                                    <Link to={`/user/${user.id}`}>
-                                        <div className="pumk-profileNameAndBio">
-                                            <p className="pumk-name">{`${user.first} ${user.last}`}</p>
-                                            <p className="pumk-bio">
-                                                {user.bio}
-                                            </p>
-                                        </div>
-                                    </Link>
+                            <a href={`/user/${user.id}`} key={idx}>
+                                <div className="search-profile" key={idx}>
+                                    <div className="search-profile-pic">
+                                        <img src={user.url} />
+                                    </div>
+                                    <div className="search-profileNameAndBio">
+                                        <p className="search-name">{`${user.first} ${user.last}`}</p>
+                                        <p className="search-bio">{user.bio}</p>
+                                    </div>
                                 </div>
-                                <UseFriendButton id={user.id} />
-                            </div>
+                            </a>
                         );
                     })}
+
+                    <p className="title">People you might know</p>
+                    <div className="pumk-wrapper">
+                        {mostRecent.map((user, idx) => {
+                            return (
+                                <div className="pumk-profile" key={idx}>
+                                    <div>
+                                        <Link to={`/user/${user.id}`}>
+                                            <div className="pumk-profile-pic">
+                                                <img src={user.url} />
+                                            </div>
+                                        </Link>
+                                        <Link to={`/user/${user.id}`}>
+                                            <div className="pumk-profileNameAndBio">
+                                                <p className="pumk-name">{`${user.first} ${user.last}`}</p>
+                                                <p className="pumk-bio">
+                                                    {user.bio}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                    <UseFriendButton id={user.id} />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

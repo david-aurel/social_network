@@ -315,6 +315,7 @@ nav {
 /* Search results */
 .search {
     margin: 20px 20px 0 20px;
+    padding-bottom: 55px;
 }
 
 .search a {
@@ -325,11 +326,53 @@ nav {
 .search-bar {
     width: 100%;
     height: 35px;
-    background: #ebebeb;
     border: none;
     border-radius: 10px;
     padding: 3px 45px;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
+    background: url("/icons/search-bar-icon.svg") #ebebeb 4% 55% no-repeat;
+}
+
+.search-bar::placeholder {
+    color: #c4c4c4;
+    font-size: 1.2rem;
+    transform: translateY(8%);
+}
+
+.search-bar-wrapper {
+    background: white;
+}
+.search-bar-wrapper img {
+    height: 25px;
+    width: 25px;
+}
+
+.search-results {
+    height: 75vh;
+    overflow: scroll;
+}
+
+.search-profile {
+    display: flex;
+    margin: 30px 0;
+}
+
+.search-profile-pic {
+    min-height: 60px;
+    min-width: 60px;
+    max-height: 60px;
+    max-width: 60px;
+    margin-right: 20px;
+}
+
+.search-profile-pic img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.search-name {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 /* pumk- people you might know */
@@ -369,8 +412,8 @@ nav {
     font-size: 0.8rem;
 }
 
-.pumk-profile .profile-button-wrapper {
-    align-self: flex-end;
+.pumk-profile .profile-button-wrapper .double-button {
+    width: 47%;
 }
 
 /* chat */
