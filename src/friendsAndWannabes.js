@@ -79,17 +79,17 @@ export default function UseFriendsAndWannabes() {
                                 </div>
                                 <div className="friends-name">
                                     <p>{`${friend.first} ${friend.last}`}</p>
-                                    <button
-                                        className="remove-friends-button"
-                                        onClick={e =>
-                                            dispatch(
-                                                action.endFriendship(friend.id)
-                                            )
-                                        }
-                                    >
-                                        remove
-                                    </button>
                                 </div>
+                                <button
+                                    className="remove-friends-button"
+                                    onClick={e =>
+                                        dispatch(
+                                            action.endFriendship(friend.id)
+                                        )
+                                    }
+                                >
+                                    remove
+                                </button>
                             </div>
                         ))}
                 </div>
