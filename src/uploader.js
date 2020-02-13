@@ -19,8 +19,19 @@ export default function upload({
                 uploaderIsVisible ? "modal-animation" : undefined
             }`}
         >
-            <button onClick={toggleUpload}>cancel</button>
-            <p>Want to change your image?</p>
+            <button onClick={toggleUpload} className="cancel-button">
+                cancel
+            </button>
+
+            <div className="edit-profile-content">
+                <div className="edit-profile-pic">
+                    <img src="/icons/camera-icon.svg" />
+                </div>
+                <div className="edit-bio">
+                    <textarea placeholder="Bio..."></textarea>
+                </div>
+            </div>
+            <button className="done-button">Done</button>
             <input type="file" onChange={e => uploadImage(e)} />
         </div>
     );
