@@ -61,6 +61,9 @@ export default class App extends React.Component {
                 <div className="header">
                     <h4>social network</h4>
                 </div>
+                <div className="burger-icon">
+                    <img src="/icons/burger-icon.svg" />
+                </div>
 
                 {/* Own Profile */}
                 <Route
@@ -68,14 +71,6 @@ export default class App extends React.Component {
                     path="/"
                     render={() => (
                         <>
-                            <div
-                                className="burger-icon"
-                                onClick={() => {
-                                    this.toggleUpload();
-                                }}
-                            >
-                                <img src="/icons/burger-icon.svg" />
-                            </div>
                             <Profile
                                 first={this.state.first}
                                 last={this.state.last}
@@ -134,13 +129,14 @@ export default class App extends React.Component {
                             <img src="/icons/search-icon.svg" />
                         </Link>
                     </div>
-                    <ProfilePic
-                        className="profilePicIcon"
-                        first={this.state.first}
-                        last={this.state.last}
-                        toggleUpload={() => this.toggleUpload()}
-                        url={this.state.url}
-                    />
+                    <Link to="/">
+                        <ProfilePic
+                            className="profilePicIcon"
+                            first={this.state.first}
+                            last={this.state.last}
+                            url={this.state.url}
+                        />
+                    </Link>
                 </nav>
             </BrowserRouter>
         );
