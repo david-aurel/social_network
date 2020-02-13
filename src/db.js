@@ -40,7 +40,7 @@ exports.updateBio = (bio, id) => {
 
 exports.getMostRecentUsers = async () => {
     const { rows } = await db.query(
-        `SELECT id, first, last, url, bio FROM users ORDER BY ID DESC LIMIT 3`
+        `SELECT id, first, last, url, bio FROM users ORDER BY ID DESC LIMIT 20`
     );
     return rows;
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
+import UseFriendButton from "./friendButton";
+import { Link } from "react-router-dom";
 
 export default function Users() {
     const [mostRecent, setMostRecent] = useState([]);
@@ -39,53 +41,56 @@ export default function Users() {
         setInput(target.value);
     };
     return (
-        <div>
-            <p>Find people</p>
-            {!input && (
-                <div>
-                    <p>Check out who just joined!</p>
+        <div className="search">
+            <div>
+                <input
+                    type="text"
+                    placeholder="Enter name"
+                    onChange={onChange}
+                    className="search-bar"
+                />
+                {searchResults.map((user, idx) => {
+                    return (
+                        <a href={`/user/${user.id}`} key={idx}>
+                            <div className="profile" key={idx}>
+                                <div className="profilePic">
+                                    <img src={user.url} />
+                                </div>
+                                <div className="profileNameAndBio">
+                                    <p>{`${user.first} ${user.last}`}</p>
+                                    <p>{user.bio}</p>
+                                </div>
+                            </div>
+                        </a>
+                    );
+                })}
+
+                <p className="title">People you might know</p>
+                <div className="pumk-wrapper">
                     {mostRecent.map((user, idx) => {
                         return (
-                            <a
-                                className="searchResult"
-                                href={`/user/${user.id}`}
-                                key={idx}
-                            >
-                                <div className="profile" key={idx}>
-                                    <div className="profilePic">
-                                        <img src={user.url} />
-                                    </div>
-                                    <div className="profileNameAndBio">
-                                        <p>{`${user.first} ${user.last}`}</p>
-                                        <p>{user.bio}</p>
-                                    </div>
+                            <div className="pumk-profile" key={idx}>
+                                <div>
+                                    <Link to={`/user/${user.id}`}>
+                                        <div className="pumk-profile-pic">
+                                            <img src={user.url} />
+                                        </div>
+                                    </Link>
+                                    <Link to={`/user/${user.id}`}>
+                                        <div className="pumk-profileNameAndBio">
+                                            <p className="pumk-name">{`${user.first} ${user.last}`}</p>
+                                            <p className="pumk-bio">
+                                                {user.bio}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
-                            </a>
+                                <UseFriendButton id={user.id} />
+                            </div>
                         );
                     })}
                 </div>
-            )}
-            <p>Are you looking for someone in particular?</p>
-            <input type="text" placeholder="Enter name" onChange={onChange} />
-            {searchResults.map((user, idx) => {
-                return (
-                    <a
-                        className="searchResult"
-                        href={`/user/${user.id}`}
-                        key={idx}
-                    >
-                        <div className="profile" key={idx}>
-                            <div className="profilePic">
-                                <img src={user.url} />
-                            </div>
-                            <div className="profileNameAndBio">
-                                <p>{`${user.first} ${user.last}`}</p>
-                                <p>{user.bio}</p>
-                            </div>
-                        </div>
-                    </a>
-                );
-            })}
+            </div>
         </div>
     );
 }

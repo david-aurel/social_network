@@ -25,9 +25,7 @@ export default function UseFriendsAndWannabes() {
         if (wannabes.length) {
             return (
                 <div className="wannabes">
-                    <p className="wannabes-title">
-                        {wannabes.length} Friend Requests
-                    </p>
+                    <p className="title">{wannabes.length} Friend Requests</p>
 
                     <div className="wannabe-profiles-wrapper">
                         {wannabes.map(wannabe => (
@@ -73,7 +71,7 @@ export default function UseFriendsAndWannabes() {
         if (friends.length) {
             return (
                 <div className="friends">
-                    <p className="friends-title">{friends.length} Friends</p>
+                    <p className="title">{friends.length} Friends</p>
                     {friends &&
                         friends.map(friend => (
                             <div key={friend.id} className="friends-profile">
@@ -106,7 +104,7 @@ export default function UseFriendsAndWannabes() {
         } else {
             return (
                 <div className="friends">
-                    <p className="friends-title">No friends yet</p>;
+                    <p className="title">No friends yet</p>;
                 </div>
             );
         }

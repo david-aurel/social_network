@@ -5,7 +5,7 @@ export default function UseFriendButton({ id }) {
     const [buttonText, setButtonText] = useState("");
     const buttonTextArr = [
         "Add Friend",
-        "Cancel friend request",
+        "Cancel request",
         "accept",
         "End friendship",
         "delete"
