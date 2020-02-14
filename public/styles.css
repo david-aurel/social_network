@@ -242,6 +242,7 @@ nav {
 /* Edit Profile */
 .edit-profile {
     position: fixed;
+    height: 75vh;
     left: 0;
     bottom: 0;
     right: 0;
@@ -251,13 +252,14 @@ nav {
     border-top-right-radius: 35px;
     transform: translateY(100%);
     transition: 0.5s;
-    padding: 20px 20px 60px 20px;
+    padding: 20px 20px 0 20px;
 }
 
 .cancel-button {
     display: block;
     margin: 0 0 20px 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    margin-left: 10px;
 }
 
 .edit-profile-content {
@@ -297,10 +299,11 @@ nav {
 .done-button {
     width: 100%;
     border-radius: 5px;
-    height: 25px;
-    background: #319cff;
-    color: white;
-    border: none;
+    background: white;
+    color: #319cff;
+    border: 1px solid #319cff;
+    font-weight: bold;
+    padding: 11px;
 }
 
 /* file upload */
@@ -493,7 +496,7 @@ nav {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 400px;
+    height: 75vh;
     background: white;
     z-index: 1;
     padding: 30px;
