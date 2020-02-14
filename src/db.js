@@ -62,6 +62,7 @@ exports.checkFriendship = async (id1, id2) => {
         `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
         [id1, id2]
     );
+
     return rows;
 };
 
@@ -107,6 +108,7 @@ exports.getFriendsOfFriend = async id => {
       OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
         [id]
     );
+
     return rows;
 };
 

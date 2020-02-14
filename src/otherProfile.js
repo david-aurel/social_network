@@ -20,6 +20,10 @@ export default class OtherProfile extends Component {
                 this.props.history.push("/");
             }
         }
+        const { data: friendsData } = await axios.get(
+            `/friends-of-friend/${userId}`
+        );
+        console.log("friendsData", friendsData);
     }
     render() {
         return (
