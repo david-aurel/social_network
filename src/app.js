@@ -53,6 +53,7 @@ export default class App extends React.Component {
                     toggleUpload={() => this.toggleUpload()}
                     uploaderIsVisible={this.state.uploaderIsVisible}
                     setBio={bio => this.setBio(bio)}
+                    bio={this.state.bio}
                 />
                 {/* Logout */}
                 <Logout

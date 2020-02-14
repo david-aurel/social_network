@@ -5,7 +5,8 @@ export default function upload({
     setProfilePicUrl,
     toggleUpload,
     uploaderIsVisible,
-    setBio
+    setBio,
+    bio
 }) {
     let newBio = "";
 
@@ -17,9 +18,11 @@ export default function upload({
         setProfilePicUrl(data.imageUrl);
     }
     async function handleSubmit() {
-        await axios.post("/updateBio", { bio: newBio });
-        setBio(newBio);
-        toggleUpload();
+        if (newBio) {
+            await axios.post("/updateBio", { bio: newBio });
+            setBio(newBio);
+            toggleUpload();
+        }
     }
     function handleChange(e) {
         newBio = e.target.value;
@@ -46,7 +49,7 @@ export default function upload({
                         onChange={e => {
                             handleChange(e);
                         }}
-                        placeholder="Bio..."
+                        placeholder="Bio.."
                     ></textarea>
                 </div>
                 <input
