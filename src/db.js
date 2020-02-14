@@ -101,6 +101,15 @@ exports.getFriendsAndWannabes = async id => {
     return rows;
 };
 
+exports.getFriendsOfFriend = async id => {
+    const { rows } = await db.query(
+        `SELECT users.id, first, last, url FROM friendships JOIN users ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+      OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
+        [id]
+    );
+    return rows;
+};
+
 exports.getHotOrNot = async id => {
     const { rows } = await db.query(
         `SELECT users.id, first, last, url, bio

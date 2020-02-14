@@ -344,6 +344,25 @@ app.get("/friends-wannabes", async (req, res) => {
     }
 });
 
+app.get("/friends-of-friend/:id", async (req, res) => {
+    console.log("GET /friends-of-friend hit");
+    try {
+        const friendship = await db.checkFriendship(
+            req.session.userId,
+            req.params.id
+        );
+        if (friendship.length) {
+            const rows = await db.getFriendsOfFriend(req.params.id);
+            res.json(rows);
+        } else {
+            res.json([{ friendship: false }]);
+        }
+    } catch (error) {
+        console.log("err in GET /friends-of-friend:", error);
+        res.sendStatus(500);
+    }
+});
+
 app.get("/hotornot.json", async (req, res) => {
     console.log("GET /hotornot hit");
     try {
