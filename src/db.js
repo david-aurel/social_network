@@ -62,7 +62,6 @@ exports.checkFriendship = async (id1, id2) => {
         `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
         [id1, id2]
     );
-
     return rows;
 };
 
@@ -104,11 +103,10 @@ exports.getFriendsAndWannabes = async id => {
 
 exports.getFriendsOfFriend = async id => {
     const { rows } = await db.query(
-        `SELECT users.id, first, last, url FROM friendships JOIN users ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        `SELECT users.id, first, last, url, accepted FROM friendships JOIN users ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
       OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
         [id]
     );
-
     return rows;
 };
 

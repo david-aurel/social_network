@@ -351,9 +351,10 @@ app.get("/friends-of-friend/:id", async (req, res) => {
             req.session.userId,
             req.params.id
         );
-        if (friendship.accepted) {
+
+        if (friendship[0].accepted) {
             const rows = await db.getFriendsOfFriend(req.params.id);
-            res.json(rows);
+            res.json({ friends: { ...rows } });
         } else {
             res.json([{ friendship: false }]);
         }

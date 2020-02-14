@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from "./axios";
 import UseFriendButton from "./friendButton";
+import { Link } from "react-router-dom";
 
 export default class OtherProfile extends Component {
     constructor() {
@@ -20,10 +21,37 @@ export default class OtherProfile extends Component {
                 this.props.history.push("/");
             }
         }
-        const { data: friendsData } = await axios.get(
-            `/friends-of-friend/${userId}`
+        let { data: friends } = await axios.get(`/friends-of-friend/${userId}`);
+        friends = Object.values(friends.friends);
+        this.setState({ friends: friends });
+    }
+    showFriends(friends) {
+        console.log(friends);
+        return (
+            <div className="friends">
+                <p className="title">
+                    {friends.length > 1
+                        ? friends.length + " Friends"
+                        : "1 Friend"}
+                </p>
+                {friends.map((friend, idx) => (
+                    <div key={idx} className="friends-profile">
+                        <Link
+                            to={`/user/${friend.id}`}
+                            className="friends-profile-pic"
+                        >
+                            <img src={friend.url} />
+                        </Link>
+                        <Link
+                            to={`/user/${friend.id}`}
+                            className="friends-name"
+                        >
+                            {`${friend.first} ${friend.last}`}
+                        </Link>
+                    </div>
+                ))}
+            </div>
         );
-        console.log("friendsData", friendsData);
     }
     render() {
         return (
@@ -38,6 +66,7 @@ export default class OtherProfile extends Component {
                     </div>
                     <UseFriendButton id={this.state.id} />
                 </div>
+                {this.state.friends && this.showFriends(this.state.friends)}
             </>
         );
     }
