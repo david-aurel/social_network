@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import Upload from "./uploader";
 import Profile from "./profile";
@@ -143,23 +143,23 @@ export default class App extends React.Component {
                 {/* Nav */}
                 <nav>
                     <div>
-                        <Link to="/chat">
+                        <NavLink to="/chat" activeClassName="active-nav">
                             <img src="/icons/chat-icon.svg" />
-                        </Link>
+                        </NavLink>
                     </div>
                     <div className="findPeople">
-                        <Link to="/users">
+                        <NavLink to="/users" activeClassName="active-nav">
                             <img src="/icons/search-icon.svg" />
-                        </Link>
+                        </NavLink>
                     </div>
-                    <Link to="/">
+                    <NavLink exact to="/" activeClassName="active-nav-picture">
                         <ProfilePic
                             className="profilePicIcon"
                             first={this.state.first}
                             last={this.state.last}
                             url={this.state.url}
                         />
-                    </Link>
+                    </NavLink>
                 </nav>
             </BrowserRouter>
         );

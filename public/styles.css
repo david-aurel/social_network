@@ -75,6 +75,14 @@ nav {
     padding: 2px;
 }
 
+.active-nav {
+    border-bottom: 2px solid black;
+}
+
+.active-nav-picture img {
+    border: 2px solid black;
+}
+
 /* Profiles */
 
 .burger-icon {
