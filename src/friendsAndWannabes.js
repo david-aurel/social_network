@@ -104,7 +104,7 @@ export default function UseFriendsAndWannabes() {
         } else {
             return (
                 <div className="friends">
-                    <p className="title">No friends yet</p>;
+                    <p className="title">No friends yet</p>
                 </div>
             );
         }

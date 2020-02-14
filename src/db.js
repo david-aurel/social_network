@@ -126,7 +126,6 @@ exports.getLastChatMessages = async () => {
     const { rows } = await db.query(
         `SELECT msg, url, chat.id, sender_id, users.id FROM chat INNER JOIN users ON chat.sender_id = users.id ORDER BY created_at DESC LIMIT 10`
     );
-    console.log("chat:", rows);
 
     return rows.slice(0).reverse();
 };

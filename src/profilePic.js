@@ -12,7 +12,7 @@ export default function ProfilePic({
             {url ? (
                 <img src={url} alt={`${first} ${last}`} />
             ) : (
-                <img src="/icons/defaultProfilePic.svg" />
+                <div className="default-profile-pic"></div>
             )}
         </div>
     );

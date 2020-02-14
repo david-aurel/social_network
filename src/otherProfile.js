@@ -28,28 +28,30 @@ export default class OtherProfile extends Component {
     showFriends(friends) {
         console.log(friends);
         return (
-            <div className="friends">
-                <p className="title">
-                    {friends.length > 1
-                        ? friends.length + " Friends"
-                        : "1 Friend"}
-                </p>
-                {friends.map((friend, idx) => (
-                    <div key={idx} className="friends-profile">
-                        <Link
-                            to={`/user/${friend.id}`}
-                            className="friends-profile-pic"
-                        >
-                            <img src={friend.url} />
-                        </Link>
-                        <Link
-                            to={`/user/${friend.id}`}
-                            className="friends-name"
-                        >
-                            {`${friend.first} ${friend.last}`}
-                        </Link>
-                    </div>
-                ))}
+            <div className="faw-wrapper">
+                <div className="friends">
+                    <p className="title">
+                        {friends.length > 1
+                            ? friends.length + " Friends"
+                            : "1 Friend"}
+                    </p>
+                    {friends.map((friend, idx) => (
+                        <div key={idx} className="friends-profile">
+                            <Link
+                                to={`/user/${friend.id}`}
+                                className="friends-profile-pic"
+                            >
+                                <img src={friend.url} />
+                            </Link>
+                            <Link
+                                to={`/user/${friend.id}`}
+                                className="friends-name"
+                            >
+                                {`${friend.first} ${friend.last}`}
+                            </Link>
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     }
