@@ -575,7 +575,7 @@ nav {
 
 .auth-menu a {
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #319cff;
     color: white;
     padding: 10px;
@@ -594,7 +594,7 @@ nav {
 }
 
 .or-tag {
-    margin: 50px 0;
+    margin: 10px 0;
     text-align: center;
 }
 
