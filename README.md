@@ -1,5 +1,9 @@
 # Social Network
 
+![Gif of Social Network](socialnetwork.gif)
+
+
+
 **A single page application for users to interact with other users, built in React.**
 
 This was the first time I was using React and I loved it! It was a real melon twister to wrap my head around, especially later on when I started using Redux and Socket.io, but it was so much fun and I'm very happy with how it turned out. When it came to design, I styled it mobile first from scratch, drawing my own icons and everything. May or may not look familiar, but sometimes the smartest thing you can do is a master copy.
