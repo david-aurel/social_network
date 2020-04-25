@@ -1,36 +1,54 @@
-# Social Network
 
-![Gif of Social Network](socialnetwork.gif)
+First time using React! It was a challenge to wrap my head around, especially later on when I started using Redux and Sockets, but it was so much fun and I'm very happy with how it turned out.
 
+---
 
+### Backend
 
-**A single page application for users to interact with other users, built in React.**
+In the back, a Node.js Express Server and a PostgreSQL database are CRUDfully keeping everything together. User information gets stored in multiple ways in the database: Aside from plain information like name, friendlists and chat messages, user profile pictures get uploaded to AWS S3, with a reference in the database. Furthermore, passwords are being salted, hashed and encrypted with Node and Bcrypt. Cookie-Sessions authenticate already logged in users. The platform is protected from potential SQL injections and CSURF Attacks.
 
-This was the first time I was using React and I loved it! It was a real melon twister to wrap my head around, especially later on when I started using Redux and Socket.io, but it was so much fun and I'm very happy with how it turned out. When it came to design, I styled it mobile first from scratch, drawing my own icons and everything. May or may not look familiar, but sometimes the smartest thing you can do is a master copy.
+![img](./readme_images/login.png)
 
+---
 
+### Reset your password
 
-**Features**
+Upon request, a key with an expiration date of ten minutes gets stored in a Redis database and gets send out via AWS SES. If the entered key checks out, the user can then change their password.
 
-* Node.js with Express and a SQL database backend
+![img](./readme_images/reset.png)
 
-* Storing user information in SQL, uploading profile pictures to AWS S3
+---
 
-* Authentication with Node, Bcrypt and Cookie-Session, where the cookies are protected from malicious tampering with using a csurf package
+### Edit profile
 
-* Reset password functionality: A key with an expiration date gets stored in a Redis Database and gets send out via AWS SES. If the entered key checks out, the user can change the password.
+Edit your profile and add a profile picture or a bio to show your friends who you are
 
-* Edit profile functionality
+![img](./readme_images/edit.png)
 
-* Find other users functionality
+---
 
-* Friend other users functionality with SQL in the back and React in the front
+### Friend other users
 
-* Live Chat with socket.io
+A search functionality lets you search for all registered users by their name. Additionally, the twenty latest users who signed up get recommended. After visiting another profile page, users can send a friend request. Once that request gets accepted by the other profile, they can both see each others friends list.
 
-  
+![img](./readme_images/search.png)
 
-- React Redux frontend
-- UI master copy of Instagram with CSS
-- Mobile first
+---
 
+### Live chat
+
+Using the WebSocket protocol with Socket.io, a site wide live chat is available for all logged in users to interact with.
+
+![img](./readme_images/chat.png)
+
+---
+
+### Frontend
+
+In the front, reusable React components make use of the global Redux state and provide a intuitive and fast user experience.
+
+The mobile first styling in CSS may or may not look familiar, but for learning purposes it was the smartest thing one could've done 😉
+
+![img](./readme_images/design.png)
+
+---
