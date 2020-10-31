@@ -564,21 +564,29 @@ nav {
 }
 
 .auth-menu button {
-    border: 1px solid black;
+    /* border: 1px solid black;
     background: white;
     border-radius: 5px;
     padding: 5px;
     font-weight: bold;
     margin: 10px 0;
-    width: 100%;
-}
-
-.auth-menu a {
-    text-decoration: none;
+    width: 100%; */
+    border: none;
     margin-top: 10px;
     background: #319cff;
     color: white;
     padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.auth-menu a {
+    text-decoration: none;
+    margin-top: 20px;
+    color: black;
+    padding: 10px;
+    border: 1px solid black;
     border-radius: 5px;
     text-align: center;
     font-weight: bold;
@@ -604,6 +612,7 @@ nav {
     background: none;
     text-decoration: underline;
     color: tomato;
+    border: none;
 }
 
 /* animation */
