@@ -15,7 +15,7 @@ function wrapInAuthForm(Component, url) {
         handleInput(e) {
             // gather value from changed form field
             this.setState({
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
             });
         }
         handleSubmit() {
@@ -26,8 +26,9 @@ function wrapInAuthForm(Component, url) {
                     location.replace("/");
                 } else {
                     //failure!
+
                     this.setState({
-                        error: true
+                        error: true,
                     });
                 }
             });
@@ -36,8 +37,8 @@ function wrapInAuthForm(Component, url) {
             return (
                 <Component
                     error={this.state.error}
-                    handleInput={e => this.handleInput(e)}
-                    handleSubmit={e => this.handleSubmit(e)}
+                    handleInput={(e) => this.handleInput(e)}
+                    handleSubmit={(e) => this.handleSubmit(e)}
                 />
             );
         }
@@ -66,7 +67,7 @@ function LoginForm({ handleInput, handleSubmit, error }) {
                 placeholder="pass"
             />
             <button onClick={handleSubmit}>Log in</button>
-            <Link to="/">Click here to register</Link>
+            <Link to="/">No account? Sign up</Link>
             <Link id="forgot-password" to="/reset">
                 Forgot password?
             </Link>

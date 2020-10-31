@@ -3,7 +3,7 @@ const db = require("./src/db");
 const bcrypt = require("./src/bcrypt");
 const ses = require("./src/ses");
 const s3 = require("./s3");
-const s3Url = "https://s3.amazonaws.com/spicedling/";
+const s3Url = "https://s3.amazonaws.com/daviddurlan/";
 
 // require node packages
 const express = require("express");
@@ -29,17 +29,17 @@ app.use(express.json());
 // cookies
 const cookieSessionMiddleware = cookieSession({
     secret: "V1JYz7qSJMoF",
-    maxAge: 1000 * 60 * 60 * 24 * 90
+    maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 
 app.use(cookieSessionMiddleware);
-io.use(function(socket, next) {
+io.use(function (socket, next) {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 
 // csurf
 app.use(csurf());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
 });
@@ -49,7 +49,7 @@ if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
         require("http-proxy-middleware")({
-            target: "http://localhost:8081/"
+            target: "http://localhost:8081/",
         })
     );
 } else {
@@ -60,9 +60,9 @@ if (process.env.NODE_ENV != "production") {
 let redis = require("redis");
 let client = redis.createClient({
     host: "localhost",
-    port: 6379
+    port: 6379,
 });
-client.on("error", function(err) {
+client.on("error", function (err) {
     console.log("error in redis client:", err);
 });
 
@@ -71,20 +71,20 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const diskStorage = multer.diskStorage({
-    destination: function(req, file, callback) {
+    destination: function (req, file, callback) {
         callback(null, __dirname + "/uploads");
     },
-    filename: function(req, file, callback) {
-        uidSafe(24).then(function(uid) {
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
             callback(null, uid + path.extname(file.originalname));
         });
-    }
+    },
 });
 const uploader = multer({
     storage: diskStorage,
     limits: {
-        fileSize: 2097152
-    }
+        fileSize: 2097152,
+    },
 });
 
 // **************  ROUTES  *******************
@@ -102,7 +102,7 @@ app.post("/register", (req, res) => {
     //insert into db
     bcrypt
         .hash(req.body.pass)
-        .then(hashedPass => {
+        .then((hashedPass) => {
             db.addUser(
                 req.body.first,
                 req.body.last,
@@ -113,20 +113,22 @@ app.post("/register", (req, res) => {
                     req.session.userId = rows[0].id;
                     res.json({ success: true });
                 })
-                .catch(() => {
+                .catch((e) => {
                     res.json({ success: false });
+                    console.log(e);
                 });
         })
-        .catch(() => {
+        .catch((e) => {
             res.json({ success: false });
+            console.log(e);
         });
 });
 
 app.post("/login", (req, res) => {
     console.log("POST /login hit");
     db.getUser(req.body.email)
-        .then(data => {
-            bcrypt.compare(req.body.pass, data[0].pass).then(match => {
+        .then((data) => {
+            bcrypt.compare(req.body.pass, data[0].pass).then((match) => {
                 if (match) {
                     req.session.userId = data[0].id;
                     res.json({ success: true });
@@ -150,19 +152,19 @@ app.post("/reset/start", (req, res) => {
     console.log("POST /reset/start hit");
     if (!req.session.userId) {
         db.getUser(req.body.email)
-            .then(data => {
+            .then((data) => {
                 let email = data[0].email;
                 const secretCode = cryptoRandomString({
-                    length: 6
+                    length: 6,
                 });
                 // REDIS //
-                client.setex(email, 600, secretCode, err => {
+                client.setex(email, 600, secretCode, (err) => {
                     if (err) {
                         return console.log("err in setex redis:", err);
                     }
                     // console.log(`the ${req.body.email} key was successfully set`);
 
-                    client.get(email, err => {
+                    client.get(email, (err) => {
                         if (err) {
                             return console.log("err in get redis:", err);
                         }
@@ -197,16 +199,16 @@ app.post("/reset/verify", (req, res) => {
             return console.log("err in get redis:", err);
         }
         if (req.body.code === data) {
-            bcrypt.hash(req.body.pass).then(hashedPass => {
+            bcrypt.hash(req.body.pass).then((hashedPass) => {
                 db.updatePass(email, hashedPass).then(() => {
                     res.json({
-                        success: true
+                        success: true,
                     });
                 });
             });
         } else {
             res.json({
-                success: false
+                success: false,
             });
         }
     });
@@ -214,19 +216,19 @@ app.post("/reset/verify", (req, res) => {
 
 app.get("/getUser", (req, res) => {
     db.getUserById(req.session.userId)
-        .then(data => {
+        .then((data) => {
             res.json(data[0]);
         })
-        .catch(err => console.log("err in POST /getUser:", err));
+        .catch((err) => console.log("err in POST /getUser:", err));
 });
 
 app.get("/user/:id.json", (req, res) => {
     console.log("GET /getOtherUser hit");
     db.getUserById(req.params.id)
-        .then(data => {
+        .then((data) => {
             res.json({ requestedUser: data[0], ownId: req.session.userId });
         })
-        .catch(err => console.log("err in POST /getOtherUser", err));
+        .catch((err) => console.log("err in POST /getOtherUser", err));
 });
 
 app.post(
@@ -240,7 +242,7 @@ app.post(
             .then(() => {
                 res.json({ imageUrl });
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log("err in POST /uploadProfilePic:", err);
             });
     }
@@ -376,7 +378,7 @@ app.get("/hotornot.json", async (req, res) => {
 });
 
 // THIS ROUTE LAST!
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
     console.log("GET * hit");
     if (!req.session.userId) {
         res.redirect("/welcome");
@@ -386,12 +388,12 @@ app.get("*", function(req, res) {
 });
 
 // server
-server.listen(8080, function() {
+server.listen(8080, function () {
     console.log("I'm listening.");
 });
 
 // server side socket code
-io.on("connection", async function(socket) {
+io.on("connection", async function (socket) {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -399,7 +401,7 @@ io.on("connection", async function(socket) {
     const msgs = await db.getLastChatMessages();
     socket.emit("chatMessages", msgs);
 
-    socket.on("chatMessage", async msg => {
+    socket.on("chatMessage", async (msg) => {
         console.log("msg in index.js:", msg, userId);
         const newMsgObj = await db.addNewMessage(msg, userId);
         io.sockets.emit("chatMessage", newMsgObj[0]);
